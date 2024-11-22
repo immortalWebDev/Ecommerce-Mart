@@ -12,9 +12,10 @@ const Footer = () => {
               Crafted with ❤️ by {" "}
               <a
                 href="my portfolio link"
-                className="text-primary fw-bold"
+                className="text-primary text-decoration-none fw-bold"
                 target="_blank"
                 rel="noreferrer"
+                style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.2)" }}
               >
                 Piyush Badgujar
               </a>
@@ -29,7 +30,7 @@ const Footer = () => {
               <i
                 className="fa fa-github"
                 aria-hidden="true"
-                
+                style={{ fontSize: "1.8rem" }}
               ></i>
             </a>
 
@@ -38,12 +39,12 @@ const Footer = () => {
               className="fs-4 text-dark mx-3"
               target="_blank"
               rel="noreferrer"
-              
+              style={{ transition: "color 0.3s ease" }}
             >
               <i
                 className="fa fa-star"
                 aria-hidden="true"
-              
+                style={{ fontSize: "1.8rem" }}
               ></i>
             </a>
           </div>
