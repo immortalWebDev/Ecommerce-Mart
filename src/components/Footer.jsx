@@ -1,14 +1,14 @@
 import React from "react";
-
+import styles from "../styles/footer.module.css"
 
 const Footer = () => {
   return (
     <>
     
-      <footer className="">
-        <div className="d-flex flex-column justify-content-center">
-          <div className="">
-            <p className="mb-md-3 mb-2 text-muted">
+      <footer className={`text-center mb-0 py-3 ${styles.footer}`}>
+        <div className="d-flex flex-column align-items-center justify-content-center">
+          <div className="col-md-8">
+            <p className="mb-md-3 mb-2 fs-6 text-muted">
               Crafted with ❤️ by {" "}
               <a
                 href="my portfolio link"
@@ -25,7 +25,7 @@ const Footer = () => {
               className="fs-4 text-dark mx-3"
               target="_blank"
               rel="noreferrer"
-              
+              style={{ transition: "color 0.3s ease" }}
             >
               <i
                 className="fa fa-github"
