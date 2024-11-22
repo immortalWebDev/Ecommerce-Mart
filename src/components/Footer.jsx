@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="d-flex flex-column justify-content-center">
           <div className="">
             <p className="mb-md-3 mb-2 text-muted">
-              
+              Crafted with ❤️ by {" "}
               <a
                 href="my portfolio link"
                 className="text-primary fw-bold"
@@ -47,9 +47,9 @@ const Footer = () => {
               ></i>
             </a>
           </div>
-          <span className="mt-3 fs-6 text-secondary">
+          <p className="mt-3 fs-6 text-secondary">
             © 2024 Rights reserved
-          </span>
+          </p>
         </div>
       </footer>
     </>
