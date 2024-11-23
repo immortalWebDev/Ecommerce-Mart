@@ -31,11 +31,9 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        
-        <div className="nabbar-content" id="navbarContent">
-          
-          <ul className="navbar-nav text-center">
-            <li className="nav-item px-">
+        <div className="collapse navbar-collapse" id="navbarContent">
+          <ul className="navbar-nav mx-auto text-center">
+            <li className="nav-item px-3">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
