@@ -80,9 +80,15 @@ const Products = () => {
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("electronics")}
-            
+            style={{
+              background: "linear-gradient(to right, #00c6ff, #0072ff)",
+              border: "none",
+
+              borderRadius: "20px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
           >
-            CAt 4
+            <i className="fa fa-tv me-2"></i> Electronics
           </button>
         </div>
 
@@ -92,11 +98,11 @@ const Products = () => {
               <div
                 id={product.id}
                 key={product.id}
-                className="col-md-4 col-sm-6 "
+                className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
               >
-                <div className="card text-center h-100">
+                <div className="card text-center h-100 border-1 shadow-sm">
                   <img
-                    className=""
+                    className={`p-3 rounded ${styles["card-img-top"]}`}
                     src={product.image}
                     alt={product.title}
                     height={300}
@@ -110,7 +116,7 @@ const Products = () => {
                     </p>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-ite">
+                    <li className="list-group-item lead text-primary fw-bold">
                       $ {product.price}
                     </li>
                   </ul>
