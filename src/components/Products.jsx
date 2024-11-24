@@ -3,10 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { addCart } from "../redux/slices/cartSlice";
 
 
-
-
-
-
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
@@ -55,27 +51,50 @@ const Products = () => {
     return (
       <>
         <div className="d-flex flex-wrap  gap-3 py-3">
-          
+          <button
+            className="btn btn-primary text-white px-5 py-2"
+            onClick={() => setFilter(data)}
+            
+          >
+             All
+          </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("men's clothing")}
-           
+            style={{
+              background: "linear-gradient(to right, #9aa5ec, #a56be1)",
+              border: "none",
+              borderRadius: "20px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
           >
-            CAT 1
+            <i className="fa fa-male me-2"></i> Men's Clothing
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("women's clothing")}
+            style={{
+              background: "linear-gradient(to right, #e83e8c, #76a4b6)",
+              border: "none",
 
+              borderRadius: "20px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
           >
-            CAT 2
+            <i className="fa fa-female me-2"></i> Women's Clothing
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("jewelery")}
+            style={{
+              background: "linear-gradient(to right, #f09819, #edde5d)",
+              border: "none",
 
+              borderRadius: "20px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
           >
-            CAT 3 
+            <i className="fa fa-diamond me-2"></i> Jewelery
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
