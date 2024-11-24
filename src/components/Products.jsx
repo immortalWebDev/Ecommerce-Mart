@@ -1,10 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { addCart } from "../redux/slices/cartSlice";
+
+
+
+
+
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
+
+
   const componentMounted = useRef(true);
+
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
@@ -13,10 +22,12 @@ const Products = () => {
 
   useEffect(() => {
     const getProducts = async () => {
+      
       const response = await fetch(`${process.env.REACT_APP_STORE_URL}`);
       if (componentMounted.current) {
         setData(await response.clone().json());
         setFilter(await response.json());
+        
       }
 
       return () => {
@@ -31,37 +42,45 @@ const Products = () => {
     return (
       <div className="row">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="col-md-4 col-sm-6 mb-4"></div>
+          <div key={i} className="col-md-4 col-sm-6 mb-4">
+            
+          </div>
         ))}
       </div>
     );
   };
 
+
   const ShowProducts = () => {
     return (
       <>
         <div className="d-flex flex-wrap  gap-3 py-3">
+          
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("men's clothing")}
+           
           >
             CAT 1
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("women's clothing")}
+
           >
             CAT 2
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("jewelery")}
+
           >
-            CAT 3
+            CAT 3 
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
             onClick={() => filterProduct("electronics")}
+            
           >
             CAt 4
           </button>
@@ -91,13 +110,22 @@ const Products = () => {
                     </p>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-ite">$ {product.price}</li>
+                    <li className="list-group-ite">
+                      $ {product.price}
+                    </li>
                   </ul>
                   <div className="card-body">
-                    <Link to="/checkout">Buy Now</Link>
+                    <Link
+                      to={"/product/" + product.id}
+                      className="btn btn-primary btn-sm me-2"
+                    >
+                      Buy Now
+                    </Link>
                     <button
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary btn-sm"
                       onClick={() => {
+                        toast.dismiss();
+                        toast.success("Added to cart");
                         addProduct(product);
                       }}
                     >
@@ -114,14 +142,19 @@ const Products = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container my-4">
       <div className="row">
         <div className="col-12 text-center">
-          <p className="text-muted">Headline 2 ....</p>
+          <h2 className="display-5 fw-bold text-primary">Just Arrived...</h2>
+          <p className="text-muted">
+            Explore our collection of the best products
+          </p>
           <hr className="w-50 mx-auto text-success" />
         </div>
       </div>
-      <div className="row justify-content-center">Main content</div>
+      <div className="row justify-content-center">
+        {loading ? <Loading /> : <ShowProducts />}
+      </div>
     </div>
   );
 };
