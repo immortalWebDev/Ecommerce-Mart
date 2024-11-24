@@ -34,11 +34,12 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 sticky-top">
       <div className="container">
         <NavLink
-          className="navbar-brand fs-3 fw-bold px-3 text-primary"
+          className="navbar-brand fs-2 fw-bold text-primary"
           to="/"
-          style={{ letterSpacing: "1px" }}
+          style={{ letterSpacing: "1px", marginLeft: "-2rem" }}
         >
-          <i className="fa fa-shopping-bag me-1"></i> Great Mart
+          <i className="fa fa-shopping-bag me-1"></i>
+          Great Mart
         </NavLink>
 
         <button
@@ -77,7 +78,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                Products
+                Our Products
               </NavLink>
             </li>
             <li className="nav-item px-3">
@@ -89,7 +90,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                About
+                About Us
               </NavLink>
             </li>
             <li className="nav-item px-3">
@@ -101,7 +102,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                Contact
+                Contact Us
               </NavLink>
             </li>
           </ul>
