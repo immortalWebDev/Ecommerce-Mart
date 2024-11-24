@@ -3,6 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { addCart } from "../redux/slices/cartSlice";
 
 
+
+
+
+
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
@@ -46,17 +50,24 @@ const Products = () => {
     );
   };
 
+  const filterProduct = (cat) => {
+    const updatedList = data.filter((item) => item.category === cat);
+    setFilter(updatedList);
+  };
 
   const ShowProducts = () => {
     return (
       <>
-        <div className="d-flex flex-wrap  gap-3 py-3">
+        <div className="d-flex flex-wrap justify-content-center gap-3 py-4">
           <button
-            className="btn btn-primary text-white px-5 py-2"
+            className="btn btn-primary btn-sm text-white px-4 py-2"
             onClick={() => setFilter(data)}
-            
+            style={{
+              borderRadius: "10px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
           >
-             All
+            <i className="fa fa-th me-2"></i> All
           </button>
           <button
             className="btn btn-gradient btn-sm text-dark px-4 py-2"
@@ -64,6 +75,7 @@ const Products = () => {
             style={{
               background: "linear-gradient(to right, #9aa5ec, #a56be1)",
               border: "none",
+              // color: "white",
               borderRadius: "20px",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             }}
