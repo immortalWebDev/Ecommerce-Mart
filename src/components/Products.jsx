@@ -42,8 +42,8 @@ const Products = () => {
     return (
       <div className="row">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="col-md-4 col-sm-6 mb-4">
-            
+          <div key={i} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
+            <Skeleton height={500} />
           </div>
         ))}
       </div>
