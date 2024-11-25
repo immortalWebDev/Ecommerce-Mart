@@ -3,17 +3,24 @@ import { Footer, Navbar } from "../components/componentsExpo";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-
+  const navigate = useNavigate();
 
   const state = useSelector((state) => state.cart);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const dispatch = useDispatch();
 
-  
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      navigate("/checkout");
+    } else {
+      navigate("/login");
+    }
+  };
 
   const EmptyCart = () => (
     <div className="container">
