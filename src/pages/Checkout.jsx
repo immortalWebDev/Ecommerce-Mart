@@ -1,29 +1,38 @@
 import React from "react";
 import { Footer, Navbar } from "../components/componentsExpo";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { clearCart } from "../redux/slices/cartSlice"; //till here
+import { clearCart } from "../redux/slices/cartSlice";
 
 const Checkout = () => {
-  
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  
+  const handleCheckout = (e) => {
+    e.preventDefault();
+
+    if (isAuthenticated) {
+      navigate("/success");
+      dispatch(clearCart());
+    } else {
+      navigate("/login");
+    }
+  };
 
   const EmptyCart = () => (
     <div className="container py-5">
-      
+      <div className="row">
         <div className="col-md-12 text-center">
           <h4 className="p-4">
-            go back shopping text
-
+            Looks like you forgot to shop! Let’s fix that.
           </h4>
-          <Link to="/" className="">
-            <i className="fa fa-arrow-left me-2"></i> shop back button
+          <Link to="/" className="btn btn-primary px-4 py-2">
+            <i className="fa fa-arrow-left me-2"></i> Back to Shopping
           </Link>
-      
+        </div>
       </div>
     </div>
   );
