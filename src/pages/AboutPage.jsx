@@ -1,18 +1,33 @@
 import React from "react";
 import { Footer, Navbar } from "../components/componentsExpo";
+import styles from"../styles/aboutPageCard.module.css";
 
 const AboutPage = () => {
   return (
     <>
       <Navbar />
       <div className="container my-3 py-3">
-        <h1 className="text-center text-primary display-5">Welcome</h1>
-        
+        <h1 className="text-center text-primary display-5">Let us introduce ourselves</h1>
+        <hr className="mb-5 text-danger" style={{ borderTop: "2px solid" }} />
         <p
           className="lead text-center"
-          
+          style={{
+            fontWeight: 500,
+            width: "90%",
+            margin: "0 auto",
+            lineHeight: "1.7",
+          }}
         >
-          Paragraph of intro rough 300-400
+          At <strong>Great Mart</strong>, we believe in creating a seamless
+          shopping experience that brings <strong>Quality Products</strong>{" "}
+          right to your doorstep. From trendy clothing to cutting-edge
+          electronics, our curated collection is designed to cater to every
+          taste and need. We pride ourselves on offering the best deals,
+          unmatched customer service, and a shopping journey that is both
+          delightful and effortless. As we continue to grow, our goal remains
+          the same: to serve you with <strong>integrity, innovation</strong>,
+          and a <strong>touch of excellence</strong>. <br />
+          Let’s make every purchase a memorable one!
         </p>
 
         <h2 className="text-center text-info pt-5 pb-3">Our main categories</h2>
