@@ -8,17 +8,18 @@ import { Footer, Navbar } from "../components/componentsExpo";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  
-  
-  
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
+    setIsLoading(true);
+    setError(null);
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
@@ -33,9 +34,9 @@ const Login = () => {
       );
 
       const data = response.data;
-      
+      console.log("User signed in successfully", data);
 
-      
+      console.log("dispatched to store");
       dispatch(
         login({
           email: data.email,
@@ -43,20 +44,22 @@ const Login = () => {
         })
       );
 
-      
+      console.log("navigated to home page");
       navigate("/");
     } catch (err) {
       console.error("Authentication failed", err);
-  
-    } 
+      setError("Authentication failed. Invalid email or password.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
 
-    
-    
-    
+    setIsLoading(true);
+    setError(null);
+    setMessage(null);
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
@@ -66,12 +69,12 @@ const Login = () => {
         email,
       });
 
-    
+      setMessage("Reset email sent. If your email is associated with us");
     } catch (err) {
       console.error("Password reset failed", err);
-    
+      setError("Failed to send password reset email. Please try again.");
     } finally {
-      
+      setIsLoading(false);
     }
   };
 
@@ -149,7 +152,7 @@ const Login = () => {
                     </p>
                   </div>
                 </form>
-              
+              )}
             </div>
           </div>
         </div>
