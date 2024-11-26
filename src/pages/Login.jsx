@@ -82,16 +82,59 @@ const Login = () => {
     <>
       <Navbar />
       <div className="container my-2 py-2">
-       
-       
-       
-       
-        
+        <h1 className="text-center fw-bold text-primary mb-4">
+          {isForgotPassword ? "Forgot Password" : "Welcome Back!"}
+        </h1>
+        <p className="text-center text-muted">
+          {isForgotPassword
+            ? "Enter your email to reset your password."
+            : "Please login to continue accessing your account."}
+        </p>
+        <hr className="mb-5 text-danger" style={{ borderTop: "2px solid" }} />
 
         <div className="row my-4">
           <div className="col-md-6 col-lg-5 mx-auto">
             <div className="card shadow-lg p-4">
-              
+              {isForgotPassword ? (
+                <form onSubmit={handleForgotPassword}>
+                  <div className="form-group my-3">
+                    <label htmlFor="email" className="fw-semibold">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control rounded-pill"
+                      id="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  {error && <p className="text-danger text-center">{error}</p>}
+                  {message && (
+                    <p className="text-success text-center">{message}</p>
+                  )}
+                  <div className="d-grid">
+                    <button
+                      type="submit"
+                      className="btn btn-primary rounded-pill py-2 shadow-sm"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Sending..." : "Send Reset Email"}
+                    </button>
+                  </div>
+                  <div className="text-center mt-4">
+                    <button
+                      type="button"
+                      className="btn btn-link text-decoration-underline text-primary"
+                      onClick={() => setIsForgotPassword(false)}
+                    >
+                      Back to Login
+                    </button>
+                  </div>
+                </form>
+              ) : (
                 <form onSubmit={handleSubmit}>
                   <div className="form-group my-3">
                     <label htmlFor="email" className="fw-semibold">
