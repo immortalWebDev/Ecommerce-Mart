@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Footer, Navbar } from "../components/componentsExpo";
 
 const ContactPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    //Manually submit (for state loading)
+    const form = e.target;
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Redirect to the thank-you page
+          window.location.href = form._next.value;
+        } else {
+          alert("Something went wrong. Please try again!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error submitting the form. Please try again!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -19,6 +48,7 @@ const ContactPage = () => {
               <form
                 action={`${process.env.REACT_APP_FORM_SUBMIT_URL}`}
                 method="POST"
+                onSubmit={handleSubmit}
               >
                 <input
                   type="hidden"
@@ -75,8 +105,9 @@ const ContactPage = () => {
                   <button
                     className="btn btn-primary px-5 py-2 rounded-pill shadow-sm"
                     type="submit"
+                    disabled={isLoading}
                   >
-                    Send Message
+                    {isLoading ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
