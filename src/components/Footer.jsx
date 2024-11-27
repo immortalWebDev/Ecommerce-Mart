@@ -4,7 +4,20 @@ import styles from "../styles/footer.module.css"
 const Footer = () => {
   return (
     <>
-    
+     <div className="absolute bottom-0 left-0 w-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 100"
+          className="w-full h-auto"
+        >
+          <path
+            fill="#ADD8E6"
+            stroke="#1E90FF"
+            strokeWidth="5"
+            d="M0,50 Q360,0 720,50 T1440,50"
+          />
+        </svg>
+      </div>
       <footer className={`text-center mb-0 py-3 ${styles.footer}`}>
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="col-md-8">
@@ -49,7 +62,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="mt-3 fs-6 text-secondary">
-            © 2024 Rights reserved
+            © {new Date().getFullYear()} All Rights Reserved
           </p>
         </div>
       </footer>
