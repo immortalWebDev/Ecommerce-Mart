@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link, useParams } from "react-router-dom";
+import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/slices/cartSlice";
 import { Footer, Navbar } from "../components/componentsExpo";
 import { syncCartWithFirebase } from "../utils/firebaseHelper";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const BuyNow = () => {
   const { id } = useParams();
@@ -16,6 +18,7 @@ const BuyNow = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userEmail = useSelector((state) => state.auth.userEmail);
+
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
@@ -23,6 +26,16 @@ const BuyNow = () => {
     if (isAuthenticated && userEmail) {
       dispatch(syncCartWithFirebase(userEmail));
     }
+
+    toast.dismiss();
+    toast.success("Added to cart", {
+      duration: 1000,
+      position: "top-right",
+      style: {
+        marginTop: "4rem",
+        color: "#0275d8",
+      },
+    });
   };
 
   useEffect(() => {
@@ -84,11 +97,11 @@ const BuyNow = () => {
   const ShowProduct = () => {
     return (
       <>
-        <div className="container my-2 py-5">
+        <div className="container my-5 py-2">
           <div className="row align-items-center">
-            <div className="col-md-6 col-sm-12 py-5">
+            <div className="col-md-6 col-sm-12 py-3 text-center">
               <img
-                className="img-fluid"
+                className="img-fluid rounded-4 shadow border border-warning"
                 src={product.image}
                 alt={product.title}
                 width={"450px"}
@@ -96,31 +109,43 @@ const BuyNow = () => {
               />
             </div>
 
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-sm-12 p-5 border rounded-4 border-warning shadow-sm bg-light">
               <div className="text-center mb-4">
-                <h6 className="">{product.category}</h6>
-                <h2 className="">{product.title}</h2>
+                <h6 className="text-muted text-uppercase">
+                  {product.category}
+                </h6>
+                <h2 className="text-primary font-weight-bold">
+                  {product.title}
+                </h2>
               </div>
 
-              <div className="d-flex align-items-center justify-content-center">
-                <p className="">{product.rating && product.rating.rate} </p>
-                <span className="">Rated</span>
+              <div className="d-flex align-items-center justify-content-center mb-3">
+                <p className="lead mb-0 me-2">
+                  {product.rating && product.rating.rate}{" "}
+                  <i className="fa fa-star text-warning"></i>
+                </p>
+                <span className="badge bg-success ms-2">Rated</span>
               </div>
 
-              <h4 className="">${product.price}</h4>
+              <h4 className="text-danger display-6 my-3 text-center">
+                ${product.price}
+              </h4>
 
-              <div className="text-dark">
+              <div className="text-dark mb-4">
                 <p className="lead">{product.description}</p>
               </div>
 
               <div className="text-center">
                 {isAuthenticated && (
-                  <button className="" onClick={() => addProduct(product)}>
-                    Add to Cart
+                  <button
+                    className="btn btn-primary px-4 py-2 me-3"
+                    onClick={() => addProduct(product)}
+                  >
+                    <i className="fa fa-cart-plus me-2"></i> Add to Cart
                   </button>
                 )}
-                <Link to="/cart" className="">
-                  Proceed to Buy
+                <Link to="/cart" className="btn btn-info px-4 py-2">
+                  <i className="fa fa-shopping-cart me-2"></i> Proceed to Buy
                 </Link>
               </div>
             </div>
@@ -160,9 +185,12 @@ const BuyNow = () => {
           <div className="d-flex ">
             {similarProducts.map((item) => {
               return (
-                <div key={item.id} className="">
+                <div
+                  key={item.id}
+                  className="card mx-4 text-center border rounded-2 border-primary"
+                >
                   <img
-                    className=""
+                    className="card-img-top p-3"
                     src={item.image}
                     alt="Card"
                     height={300}
@@ -181,7 +209,10 @@ const BuyNow = () => {
                       Buy Now
                     </Link>
                     {isAuthenticated && (
-                      <button className="" onClick={() => addProduct(item)}>
+                      <button
+                        className="btn btn-primary m-1"
+                        onClick={() => addProduct(item)}
+                      >
                         Add to Cart
                       </button>
                     )}
