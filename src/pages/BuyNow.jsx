@@ -201,11 +201,14 @@ const BuyNow = () => {
                       {item.title.substring(0, 15)}...
                     </h5>
                   </div>
-                  <ul className="">
-                    <li className="">${product.price}</li>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item lead">${product.price}</li>
                   </ul>
                   <div className="card-body">
-                    <Link to={"/product/" + item.id} className="">
+                    <Link
+                      to={"/product/" + item.id}
+                      className="btn btn-success m-1"
+                    >
                       Buy Now
                     </Link>
                     {isAuthenticated && (
@@ -229,21 +232,33 @@ const BuyNow = () => {
     <>
       <Navbar />
       <div className="container">
-        <div className="row">
-          {" "}
-          <ShowProduct />
+        <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
+        <div className="absolute bottom-0 left-0 w-full">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 100"
+            className="w-full h-auto"
+          >
+            <path
+              fill="none"
+              stroke="blue"
+              strokeWidth="3"
+              d="M0,50 Q360,0 720,50 T1440,50"
+            />
+          </svg>
         </div>
-
-        <div className="d-none d-md-block">
-          <h3 className="">Peope have also bought:</h3>
-
-          <ShowSimilarProduct />
+        <div className="row my-5 py-5">
+          <div className="d-none d-md-block">
+            <h2 className="">Peope have also bought:</h2>
+            <Marquee pauseOnHover={true} pauseOnClick={true} speed={60}>
+              {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
+            </Marquee>
+          </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
 };
 
-export default BuyNow;
+export default BuyNow
