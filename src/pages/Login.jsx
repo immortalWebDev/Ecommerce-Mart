@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/authSlice";
 import { Footer, Navbar } from "../components/componentsExpo";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +35,17 @@ const Login = () => {
       );
 
       const data = response.data;
-      console.log("User signed in successfully", data);
+      console.log("User signed in successfully", data.displayName);
+
+       toast.success("Heyy, Welcome to Great Mart", {
+        duration: 3000,
+        position: "down-right",
+        style: {
+            marginBottom: "3rem",
+            backgroundColor: '#0275d8 ',
+            color: 'white',
+          },
+      });
 
       console.log("dispatched to store");
       dispatch(
