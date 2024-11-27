@@ -6,7 +6,7 @@ const ContactPage = () => {
     <>
       <Navbar />
       <div className="container my-2 py-2">
-        <h1 className="text-center fw-bold mb-4">Get in Touch</h1>
+        <h1 className="text-center fw-bold text-success mb-4">Get in Touch</h1>
         <p className="text-center text-muted">
           We'd love to hear from you! Fill out the form below and we'll get back
           to you as soon as possible.
@@ -16,7 +16,22 @@ const ContactPage = () => {
         <div className="row my-4">
           <div className="col-md-6 col-lg-5 mx-auto">
             <div className="card shadow p-4">
-              <form>
+              <form
+                action={`${process.env.REACT_APP_FORM_SUBMIT_URL}`}
+                method="POST"
+              >
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="New Contact Form Submission!"
+                />
+                <input type="hidden" name="_captcha" value="false" />
+                <input
+                  type="hidden"
+                  name="_next"
+                  value="http://localhost:3000/thank-you"
+                />
+
                 <div className="form-group my-3">
                   <label htmlFor="Name" className="fw-semibold">
                     Your Name
@@ -25,7 +40,9 @@ const ContactPage = () => {
                     type="text"
                     className="form-control rounded-pill"
                     id="Name"
-                    placeholder="John Doe"
+                    name="name"
+                    placeholder="Your name"
+                    required
                   />
                 </div>
                 <div className="form-group my-3">
@@ -36,7 +53,9 @@ const ContactPage = () => {
                     type="email"
                     className="form-control rounded-pill"
                     id="Email"
+                    name="email"
                     placeholder="you@example.com"
+                    required
                   />
                 </div>
                 <div className="form-group my-3">
@@ -47,7 +66,9 @@ const ContactPage = () => {
                     rows={5}
                     className="form-control rounded"
                     id="Message"
+                    name="message"
                     placeholder="Write your message here..."
+                    required
                   ></textarea>
                 </div>
                 <div className="text-center">
