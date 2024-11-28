@@ -116,6 +116,29 @@ const Profile = () => {
           className="card mx-auto p-4 shadow-lg"
           style={{ maxWidth: "500px" }}
         >
+          <div className="text-center">
+            <h2 className="text-primary">Your Profile</h2>
+            <div className="my-3">
+              <img
+                src={profilePic || "https://via.placeholder.com/150"}
+                alt="Profile"
+                style={{
+                  width: "170px",
+                  height: "170px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+            <input
+              type="file"
+              id="profilePic"
+              className="form-control mb-3"
+              accept="image/*"
+              onChange={handleProfilePicUpload}
+            />
+          </div>
+
           <form onSubmit={handleUpdateProfile}>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
@@ -143,14 +166,56 @@ const Profile = () => {
                 disabled
               />
             </div>
-
+            <div className="mb-3">
+              <label htmlFor="phone" className="form-label">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                id="phone"
+                placeholder="Your Phone number"
+                className="form-control"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="address" className="form-label">
+                Address
+              </label>
+              <textarea
+                id="address"
+                className="form-control"
+                rows="2"
+                placeholder="Your Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              ></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="pinCode" className="form-label">
+                Pin Code
+              </label>
+              <input
+                type="text"
+                id="pinCode"
+                placeholder="Your PIN"
+                className="form-control"
+                value={pinCode}
+                onChange={(e) => setPinCode(e.target.value)}
+              />
+            </div>
             <div className="text-center">
-              <button type="submit" className="btn">
-                Update
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isLoading}
+              >
+                {isLoading ? "Updating..." : "Update Profile"}
               </button>
               <button
                 type="button"
-                className="btn"
+                className="btn btn-secondary ms-3"
                 onClick={() => navigate("/")}
               >
                 Home
