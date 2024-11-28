@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import { Footer, Navbar } from "../components/componentsExpo";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import {toast} from "react-hot-toast";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
+    setIsLoading(true);
+    setError(null);
 
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
@@ -33,18 +33,28 @@ const Register = () => {
       );
 
       const data = response.data;
+      console.log("User registered successfully", data);
+
+      // Show success toast
+      toast.success("Heyy, Registration successful! Redirecting to login...", {
+        duration: 3000,
+        position: "down-right",
+        style: {
+            marginBottom: "3rem",
+          },
+      });
 
 
+      // Redirect after a short delay
+      setTimeout(() => navigate("/login"), 3000);
       
-
-
-      
-      
-      navigate("/login");
+    //   navigate("/login");
     } catch (err) {
       console.error("Signup failed", err);
-    
-    } 
+      setError("Signup failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
