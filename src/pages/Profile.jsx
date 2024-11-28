@@ -4,13 +4,18 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserProfile } from "../utils/firebaseHelper";
+import { ClipLoader } from "react-spinners";
 
 const Profile = () => {
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [name, setName] = useState("");
   const [profilePic, setProfilePic] = useState("");
-
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pinCode, setPinCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,16 +23,17 @@ const Profile = () => {
 
   const email = useSelector((state) => state.auth.userEmail);
   const token = useSelector((state) => state.auth.token);
-
-  //   console.log(email)
+ 
+//   console.log(email)
   const sanitizeEmail = (email) => email.replace(/[.@]/g, "_");
+
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(false);
 
-    if (!name) {
+    if (!name || !address || !phone || !pinCode) {
       setError("All fields are required.");
       return;
     }
@@ -43,6 +49,9 @@ const Profile = () => {
           displayName: name,
           email,
           photoUrl: profilePic,
+          address,
+          phone,
+          pinCode,
         }
       );
       setSuccess(true);
@@ -54,10 +63,13 @@ const Profile = () => {
           displayName: name,
           email,
           photoUrl: profilePic,
+          address,
+          phone,
+          pinCode,
         })
       );
 
-      //   console.log(name)
+    //   console.log(name)
       updateUserProfile(name, idToken);
     } catch (err) {
       setError("Failed to update profile.");
@@ -65,6 +77,17 @@ const Profile = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleProfilePicUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfilePic(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -81,9 +104,13 @@ const Profile = () => {
       // Check for cached user data in localStorage
       const cachedData = localStorage.getItem("userProfile");
       if (cachedData) {
-        const { displayName, photoUrl } = JSON.parse(cachedData);
+        const { displayName, photoUrl, address, phone, pinCode } =
+          JSON.parse(cachedData);
         setName(displayName || "");
         setProfilePic(photoUrl || "");
+        setAddress(address || "");
+        setPhone(phone || "");
+        setPinCode(pinCode || "");
       }
 
       try {
@@ -95,25 +122,47 @@ const Profile = () => {
         if (userData) {
           setName(userData.displayName || "");
           setProfilePic(userData.photoUrl || "");
+          setAddress(userData.address || "");
+          setPhone(userData.phone || "");
+          setPinCode(userData.pinCode || "");
 
           // Save data to localStorage for future use
+          localStorage.setItem("userProfile", JSON.stringify(userData));
         } else {
           setError("Profile is not updated.");
         }
       } catch (err) {
         setError("Failed to fetch user profile.");
         console.error(err.response?.data || err.message);
+      } finally {
+        setLoadingProfile(false);
       }
     };
     fetchUserProfile();
   }, [email, token, FIREBASE_DB_URL]);
+
+  // Conditional rendering for spinner
+  if (loadingProfile) {
+    return (
+      <>
+        <Navbar />
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "100vh" }} // Center spinner vertically
+        >
+          <ClipLoader color="blue" size={60} />
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
       <div className="container mt-5">
         <div
-          className="card mx-auto p-4 shadow-lg"
+          className="card mx-auto p-4 shadow-lg border border-primary rounded-3"
           style={{ maxWidth: "500px" }}
         >
           <div className="text-center">
@@ -221,7 +270,15 @@ const Profile = () => {
                 Home
               </button>
 
-              <div className="m-2"></div>
+              <div className="m-2">
+                {" "}
+                {error && <div className="alert alert-danger">{error}</div>}
+                {success && (
+                  <div className="alert alert-success">
+                    Profile updated successfully!
+                  </div>
+                )}
+              </div>
             </div>
           </form>
         </div>
