@@ -1,0 +1,30 @@
+.dropdown-menu {
+  animation: fadeIn 0.3s ease;
+  background-color: #f8f9fae1;
+  border-radius: 8px;
+  padding: 5px;
+  border: solid 1px rgb(84, 84, 194);
+  margin: 10px;
+  width: 100px;
+}
+
+.dropdown-menu .dropdown-item {
+  display: block;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #d8dbdd;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
