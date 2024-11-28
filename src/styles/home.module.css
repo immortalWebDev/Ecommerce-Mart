@@ -1,0 +1,13 @@
+.userName {
+    color: orange;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .userName-enter {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
