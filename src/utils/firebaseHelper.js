@@ -1,10 +1,10 @@
-import axios from "axios"; 
+import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_FIREBASE_RTDB;
 const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
 const CREATE_USER = process.env.REACT_APP_FB_USER_PROF_CREATE_UPDATE;
 const LOOKUP_USER = process.env.REACT_APP_USER_LOOKUP;
-
+const NEW_TOKEN =  process.env.REACT_APP_NEW_JWT_TOKEN
 
 export const sanitizeEmail = (email) => {
   if (!email) {
@@ -136,5 +136,54 @@ export const fetchUserProfile = async () => {
       "Error fetching user profile:",
       error.response?.data || error
     );
+  }
+};
+
+// Function to get a fresh token using the refresh token
+export const getFreshToken = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  if (!refreshToken) {
+    throw new Error("No refresh token found");
+  }
+
+  try {
+    const response = await axios.post(
+      `${NEW_TOKEN}${API_KEY}`,
+      {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      }
+    );
+
+    const newIdToken = response.data.id_token;
+    const newRefreshToken = response.data.refresh_token;
+    const expiresIn = response.data.expires_in;
+
+    // console.log(response.data); //email doesnt come with this
+
+    console.log("Fetched new token from Firebase bcz old token expired");
+    // Update tokens in localStorage
+    localStorage.setItem("token", newIdToken);
+    localStorage.setItem("refreshToken", newRefreshToken);
+    localStorage.setItem("tokenExpiry", Date.now() + expiresIn * 1000);
+
+    return newIdToken;
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    throw new Error("Failed to refresh token");
+  }
+};
+
+// Function for gettin valid token
+export const getToken = async () => {
+  const token = localStorage.getItem("token");
+  const tokenExpiry = localStorage.getItem("tokenExpiry");
+
+  // Check token valiidity
+  if (token && Date.now() < tokenExpiry) {
+    return token;
+  } else {
+    return await getFreshToken();
   }
 };
