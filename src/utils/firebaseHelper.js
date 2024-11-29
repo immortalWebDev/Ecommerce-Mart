@@ -52,3 +52,41 @@ export const getCartFromFirebase = async (userEmail) => {
 };
 
 
+
+export const clearCartFirebase = async (userEmail) => {
+  try {
+    const sanitizedEmail = sanitizeEmail(userEmail);
+
+    const response = await axios.delete(
+      `${BASE_URL}/carts/${sanitizedEmail}.json`
+    );
+
+    console.log("Cart cleared in Firebase:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error clearing cart in Firebase:",
+      error.response || error.message
+    );
+    // throw error;
+  }
+};
+
+
+
+
+export const syncCartWithFirebase =
+  (userEmail) => async (dispatch, getState) => {
+    try {
+      if (!userEmail) {
+        console.warn("User email is missing! Skipping Firebase cart sync.");
+        return;
+      }
+      const cart = getState().cart;
+      await updateCartInFirebase(userEmail, cart);
+    } catch (error) {
+      console.error("Failed to sync cart with Firebase:", error);
+    }
+  };
+
+
