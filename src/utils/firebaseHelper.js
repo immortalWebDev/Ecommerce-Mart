@@ -1,6 +1,9 @@
 import axios from "axios"; 
 
 const BASE_URL = process.env.REACT_APP_FIREBASE_RTDB;
+const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
+const CREATE_USER = process.env.REACT_APP_FB_USER_PROF_CREATE_UPDATE;
+const LOOKUP_USER = process.env.REACT_APP_USER_LOOKUP;
 
 
 export const sanitizeEmail = (email) => {
@@ -74,6 +77,33 @@ export const clearCartFirebase = async (userEmail) => {
 
 
 
+export const updateUserProfile = async (name, idToken) => {
+
+  let updatedProfile;
+  try {
+    const response = await axios.post(`${CREATE_USER}${API_KEY}`, {
+      idToken: idToken,
+      displayName: name,
+      returnSecureToken: true,
+    });
+    updatedProfile =  response.data
+    return response.data;
+  } catch (error) {
+    // console.error("Error updating profile:", error.message);
+    console.error("Error updating profile:", error.response?.data || error.message);
+
+    //   throw error;
+  }finally{
+    if (updatedProfile) {
+      console.log("Profile updated successfully:", updatedProfile);
+    } else {
+      console.log("Profile update failed.");
+    }
+
+  }
+};
+
+
 
 export const syncCartWithFirebase =
   (userEmail) => async (dispatch, getState) => {
@@ -90,3 +120,21 @@ export const syncCartWithFirebase =
   };
 
 
+
+export const fetchUserProfile = async () => {
+  const url = `${LOOKUP_USER}${API_KEY}`;
+
+  try {
+    let idToken = await getToken();
+    const response = await axios.post(url, { idToken });
+    const userName = response.data.users[0]?.displayName;
+
+    return userName;
+    // console.log(userName)
+  } catch (error) {
+    console.error(
+      "Error fetching user profile:",
+      error.response?.data || error
+    );
+  }
+};
