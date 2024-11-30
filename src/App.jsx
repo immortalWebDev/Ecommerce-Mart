@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ScrollHandler from "./components/ScrollHandler";
 import {
@@ -20,7 +20,7 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
     <>
       <ScrollHandler>
@@ -35,6 +35,10 @@ const App = () => {
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/checkout"
+            element={isAuthenticated ? <Checkout /> : <Navigate to="/login" />}
+          />
           <Route path="/success" element={<Success />} />
           <Route path="*" element={<PageNotFound404Error />} />
           <Route path="/product/*" element={<PageNotFound404Error />} />
