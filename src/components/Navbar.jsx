@@ -15,7 +15,6 @@ const Navbar = () => {
     setShowDropdown((prev) => !prev);
   };
 
-  // Close dropdown if im clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -31,7 +30,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 sticky-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2 sticky-top">
       <div className="container">
         <NavLink
           className="navbar-brand fs-2 fw-bold text-primary"
@@ -78,7 +77,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                Our Products
+                Shopping
               </NavLink>
             </li>
             <li className="nav-item px-3">
@@ -90,7 +89,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                About Us
+                Know Us
               </NavLink>
             </li>
             <li className="nav-item px-3">
@@ -107,62 +106,96 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <div className="buttons text-center">
-            <NavLink
-              to="/register"
-              className="btn btn-outline-success me-2"
-              style={{ fontWeight: "500" }}
-            >
-              <i className="fa fa-check me-2"></i>Register
-            </NavLink>
-
-            <div
-              className="position-relative d-inline-block"
-              ref={dropdownRef} // Attach ref to dropdown container
-            >
-              <button
-                className="btn btn-outline-secondary me-2"
+          <div className="buttons d-flex align-items-center justify-content-between">
+            {!isAuthenticated && (
+              <NavLink
+                to="/register"
+                className="btn btn-outline-success me-2"
                 style={{ fontWeight: "500" }}
-                onClick={toggleDropdown}
               >
-                <i className="fa fa-gear"></i>
-              </button>
+                <i className="fa fa-check me-2"></i>Register
+              </NavLink>
+            )}
 
-              {showDropdown && (
-                <div
-                  className={`dropdown-menu-end show shadow-sm ${styles["dropdown-menu"]}`}
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    right: "0",
-                    zIndex: 1000,
-                  }}
+            
+              {isAuthenticated && (
+                <NavLink
+                  to="/profile"
+                  className="btn btn-outline-danger mr-2"
+                  style={{ fontWeight: "500" }}
+                  
                 >
-                  <NavLink
-                    to="/login"
-                    className={`text-dark ${styles["dropdown-item"]}`}
+                  <i className="fa fa-user me-2"></i>Your profile
+                </NavLink>
+              )}
+
+
+              {isAuthenticated && (
+                <NavLink
+                  to="/cart"
+                  className="btn btn-outline-primary me-2"
+                  style={{ fontWeight: "500" }}
+                >
+                  <i className="fa fa-cart-arrow-down me-2"></i>Cart (
+                  {state.length})
+                </NavLink>
+              )}
+
+                <div
+                  className="position-relative d-inline-block"
+                  ref={dropdownRef}
+                >
+                  <button
+                    className="btn btn-outline-secondary me-2"
                     style={{ fontWeight: "500" }}
-                    onClick={() => setShowDropdown(false)}
+                    onClick={toggleDropdown}
                   >
-                    <i className="fa fa-user me-2"></i>Login
-                  </NavLink>
-                  <NavLink
-                    to="/cart"
-                    className={`text-dark ${styles["dropdown-item"]}`}
-                    style={{ fontWeight: "500" }}
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    <i className="fa fa-cart-arrow-down me-2"></i>Cart (
-                    {state.length})
-                  </NavLink>
-                  {isAuthenticated && (
-                    <div className={`text-dark ${styles["dropdown-item"]}`}>
-                      <Logout />
+                    <i className="fa fa-gear"></i>
+                  </button>
+
+                  {showDropdown && (
+                    <div
+                      className={`dropdown-menu-end show shadow-sm ${styles["dropdown-menu"]}`}
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        right: "55",
+                        zIndex: 1000,
+                      }}
+                    >
+                      {!isAuthenticated && (
+                        <NavLink
+                          to="/login"
+                          className="btn btn-outline-primary rounded-pill me-2"
+                          style={{ fontWeight: "500" }}
+                          onClick={() => setShowDropdown(false)}
+                        >
+                          <i className="fa fa-user me-2"></i>Login
+                        </NavLink>
+                      )}
+
+                      {isAuthenticated && (
+                        <div className={`text-dark ${styles["dropdown-item"]}`}>
+                          <Logout />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
+
+                <span>
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/8539/8539117.png"
+                    style={{ width: "45px", height: "45px", marginLeft: "2px" }}
+                    alt="Bags"
+                  />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/3541/3541631.png"
+                    style={{ width: "45px", height: "45px", marginRight: "1px" }}
+                    alt="Bags"
+                  />
+                </span>
+            
           </div>
         </div>
       </div>
