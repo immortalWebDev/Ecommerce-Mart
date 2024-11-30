@@ -6,17 +6,30 @@ import { Link } from "react-router-dom";
 import { clearCart } from "../redux/slices/cartSlice";
 
 const Checkout = () => {
+
+  const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate();
+
   const cartItems = useSelector((state) => state.cart);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userEmail = useSelector((state) => state.auth.userEmail);
+
   const dispatch = useDispatch();
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-
+  const handleCheckout = async (values) => {
     if (isAuthenticated) {
-      navigate("/success");
-      dispatch(clearCart());
+      try {
+        setIsLoading(true)
+        await clearCartFirebase(userEmail);
+        dispatch(clearCart());
+        navigate("/success");
+      } catch (error) {
+        console.error("Error during checkout:", error);
+      }
+      finally{
+        setIsLoading(false)
+        console.log('Order placed successfully of:', userEmail )
+      }
     } else {
       navigate("/login");
     }
@@ -29,7 +42,7 @@ const Checkout = () => {
           <h4 className="p-4">
             Looks like you forgot to shop! Let’s fix that.
           </h4>
-          <Link to="/" className="btn btn-primary px-4 py-2">
+          <Link to="/product" className="btn btn-primary px-4 py-2">
             <i className="fa fa-arrow-left me-2"></i> Back to Shopping
           </Link>
         </div>
@@ -219,8 +232,8 @@ const Checkout = () => {
   return (
     <>
       <Navbar />
-      <div className="container my-4">
-        <h1 className="text-center text-danger mb-4">Checkout</h1>
+      <div className="container my-3">
+        <h1 className="text-center text-danger mb-3">Checkout</h1>
         <hr />
         {cartItems.length ? <ShowCheckout /> : <EmptyCart />}
       </div>
