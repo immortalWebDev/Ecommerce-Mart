@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { syncCartWithFirebase } from "../utils/firebaseHelper";
 
 const Cart = () => {
+  
   const navigate = useNavigate();
-
   const state = useSelector((state) => state.cart);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userEmail = useSelector((state) => state.auth.userEmail);
 
   const dispatch = useDispatch();
 
@@ -22,6 +24,20 @@ const Cart = () => {
     }
   };
 
+  const addItem = (product) => {
+    dispatch(addCart(product));
+    if (isAuthenticated && userEmail) {
+      dispatch(syncCartWithFirebase(userEmail));
+    }
+  };
+
+  const removeItem = (product) => {
+    dispatch(delCart(product));
+    if (isAuthenticated && userEmail) {
+      dispatch(syncCartWithFirebase(userEmail));
+    }
+  };
+
   const EmptyCart = () => (
     <div className="container">
       <div className="row">
@@ -29,16 +45,13 @@ const Cart = () => {
           <h4 className="p-3 display-5">
             Looks like you forgot to shop! Let’s fix that.
           </h4>
-          <Link to="/" className="btn btn-outline-dark mx-4">
+          <Link to="/product" className="btn btn-outline-info mx-4">
             <i className="fa fa-arrow-left"></i> Back to Shopping
           </Link>
         </div>
       </div>
     </div>
   );
-
-  const addItem = (product) => dispatch(addCart(product));
-  const removeItem = (product) => dispatch(delCart(product));
 
   const calculateTotal = () => {
     let subtotal = 0;
