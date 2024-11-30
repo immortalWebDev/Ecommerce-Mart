@@ -36,6 +36,7 @@ const Login = () => {
 
       const data = response.data;
       console.log("User signed in successfully", data.displayName);
+      // console.log(data.idToken)
 
        toast.success("Heyy, Welcome to Great Mart", {
         duration: 3000,
@@ -47,15 +48,18 @@ const Login = () => {
           },
       });
 
-      console.log("dispatched to store");
+      console.log("Imp data dispatched to store");
       dispatch(
         login({
           email: data.email,
           token: data.idToken,
+          refreshToken: data.refreshToken,
+          displayName: data.displayName,
+          expiresIn: data.expiresIn
         })
       );
 
-      console.log("navigated to home page");
+      console.log("navigated to home page after success login and updating state via redux");
       navigate("/");
     } catch (err) {
       console.error("Authentication failed", err);
