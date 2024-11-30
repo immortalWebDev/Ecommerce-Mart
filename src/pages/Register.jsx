@@ -8,12 +8,19 @@ const Register = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -33,7 +40,7 @@ const Register = () => {
       );
 
       const data = response.data;
-      console.log("User registered successfully", data);
+      console.log("User registered successfully", data.email);
 
       // Show success toast
       toast.success("Heyy, Registration successful! Redirecting to login...", {
@@ -79,7 +86,7 @@ const Register = () => {
                     type="text"
                     className="form-control rounded-pill"
                     id="fullName"
-                    placeholder="Enter your full name"
+                    placeholder="Enter your name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
@@ -113,6 +120,20 @@ const Register = () => {
                     required
                   />
                 </div>
+                <div className="form-group my-3">
+                  <label htmlFor="password" className="fw-semibold">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control rounded-pill"
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
                 {error && <p className="text-danger text-center">{error}</p>}
                 <div className="d-grid">
                   <button
@@ -120,7 +141,7 @@ const Register = () => {
                     className="btn btn-primary rounded-pill py-2 shadow-sm"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Registering..." : "Register"}
+                    {isLoading  ? "Registering..." : "Register"}
                   </button>
                 </div>
                 <div className="text-center mt-4">
