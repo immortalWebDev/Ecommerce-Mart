@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setCart } from "../redux/slices/cartSlice";
 import { fetchUserProfile } from "../utils/firebaseHelper";
 import { ClipLoader } from "react-spinners";
+import styles from "../styles/main.module.css"
 
 const Main = () => {
   const [userName, setUserName] = useState("");
@@ -62,7 +63,7 @@ const Main = () => {
         ) : (
           <div className="card bg-dark text-white border-0 mx-3">
             <img
-              className="card-img img-fluid"
+              className={`${styles['card-img']}`}
               src="./assets/cart.png"
               alt="background"
             />
@@ -71,12 +72,12 @@ const Main = () => {
                 <h3 className="card-title fs-2 text-primary fw-bold">
                   {getWelcomeMessage()}
                 </h3>
-                <h5 className="card-title fs-1 text-primary fw-bold">
+                <h5 className={`fs-1 text-primary fw-bold ${styles['card-title']}`}>
                   Exclusive Deals Waiting for you!
                 </h5>
-                <p className="card-text fs-5 ">
-                  Shop the Latest Trends and Save Big – Hurry up ! <br />
-                  Limited Time Only!
+                <p className={`${styles['card-text']}`}>
+                  Shop the Latest Trends and Save Big <br />
+                  Hurry up - Limited Time Only!
                 </p>
               </div>
             </div>
