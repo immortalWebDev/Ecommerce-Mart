@@ -33,9 +33,8 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2 sticky-top">
       <div className="container">
         <NavLink
-          className="navbar-brand fs-2 fw-bold text-primary"
+          className={`navbar-brand fs-2 fw-bold text-primary ${styles['great-mart-logo']}`}
           to="/"
-          style={{ letterSpacing: "1px", marginLeft: "-2rem" }}
         >
           <i className="fa fa-shopping-bag me-1"></i>
           Great Mart
@@ -135,6 +134,7 @@ const Navbar = () => {
                   to="/cart"
                   className="btn btn-outline-primary me-2"
                   style={{ fontWeight: "500" }}
+                  // onClick={handleCartRefresh}
                 >
                   <i className="fa fa-cart-arrow-down me-2"></i>Cart (
                   {state.length})

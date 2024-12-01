@@ -6,3 +6,15 @@
   transform: scale(1.05);
 }
 
+@media(max-width:768px){
+
+  .category-buttons {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .category-buttons button {
+    width: 60%; 
+  }
+
+}

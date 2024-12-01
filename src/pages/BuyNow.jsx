@@ -8,6 +8,7 @@ import { Footer, Navbar } from "../components/componentsExpo";
 import { syncCartWithFirebase } from "../utils/firebaseHelper";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import styles from "../styles/buyNow.module.css"
 
 const BuyNow = () => {
   const { id } = useParams();
@@ -101,11 +102,9 @@ const BuyNow = () => {
           <div className="row align-items-center">
             <div className="col-md-6 col-sm-12 py-3 text-center">
               <img
-                className="img-fluid rounded-4 shadow border border-warning"
+                className={` rounded-4 shadow border border-warning ${styles['product-image']}`}
                 src={product.image}
                 alt={product.title}
-                width={"450px"}
-                height={"400px"}
               />
             </div>
 
@@ -135,7 +134,7 @@ const BuyNow = () => {
                 <p className="lead">{product.description}</p>
               </div>
 
-              <div className="text-center">
+              <div className={`text-center ${styles['button-group']}`}>
                 {isAuthenticated && (
                   <button
                     className="btn btn-primary px-4 py-2 me-3"

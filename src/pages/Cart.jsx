@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer, Navbar } from "../components/componentsExpo";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { syncCartWithFirebase } from "../utils/firebaseHelper";
+import styles from "../styles/cart.module.css";
 
 const Cart = () => {
-  
   const navigate = useNavigate();
   const state = useSelector((state) => state.cart);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userEmail = useSelector((state) => state.auth.userEmail);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    syncCartWithFirebase(userEmail);
+    console.log("Cart refreshed for cross device updates");
+  }, [state.cart, userEmail]);
 
   const handleCheckout = (e) => {
     e.preventDefault();
@@ -79,40 +84,43 @@ const Cart = () => {
                 {state.map((item) => (
                   <div key={item.id}>
                     <div className="row d-flex align-items-center">
-                      <div className="col-lg-3 col-md-12">
+                      <div
+                        className={`col-lg-3 col-md-12 ${styles["cart-img"]}`}
+                      >
                         <img
+                          className="img-fluid rounded"
                           src={item.image}
                           alt={item.title}
                           width={100}
                           height={75}
-                          className="img-fluid rounded"
                         />
                       </div>
-                      <div className="col-lg-5 col-md-6">
+                      <div
+                        className={`col-lg-5 col-md-6 ${styles["cart-img"]}`}
+                      >
                         <p>
                           <strong>{item.title}</strong>
                         </p>
                       </div>
                       <div className="col-lg-4 col-md-6">
-                        <div
-                          className="d-flex mb-4"
-                          style={{ maxWidth: "300px" }}
-                        >
-                          <button
-                            className="btn btn-outline-danger px-3"
-                            onClick={() => removeItem(item)}
-                          >
-                            <i className="fas fa-minus"></i>
-                          </button>
-                          <p className="mx-5">{item.qty}</p>
-                          <button
-                            className="btn btn-outline-success px-3"
-                            onClick={() => addItem(item)}
-                          >
-                            <i className="fas fa-plus"></i>
-                          </button>
+                        <div className="d-flex mb-4">
+                          <div className="d-flex mx-auto gap-3">
+                            <button
+                              className="btn btn-outline-danger"
+                              onClick={() => removeItem(item)}
+                            >
+                              <i className="fas fa-minus"></i>
+                            </button>
+                            <p className="qtyText">{item.qty}</p>
+                            <button
+                              className="btn btn-outline-success"
+                              onClick={() => addItem(item)}
+                            >
+                              <i className="fas fa-plus"></i>
+                            </button>
+                          </div>
                         </div>
-                        <p className="text-start text-md-center">
+                        <p className="d-flex justify-content-center align-items-center">
                           <strong>
                             <span className="text-muted">{item.qty}</span> x $
                             {item.price}

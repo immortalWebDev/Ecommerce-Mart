@@ -64,7 +64,7 @@ const Products = () => {
   const ShowProducts = () => {
     return (
       <>
-        <div className="d-flex flex-wrap justify-content-center gap-4 py-4">
+        <div className={`d-flex flex-wrap justify-content-center gap-4 py-4 ${styles['category-buttons']}`}>
           <button
             className="btn btn-primary btn-sm text-white px-4 py-2"
             onClick={() => setFilter(data)}

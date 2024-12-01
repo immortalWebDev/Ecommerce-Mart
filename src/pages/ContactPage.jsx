@@ -59,7 +59,7 @@ const ContactPage = () => {
                 <input
                   type="hidden"
                   name="_next"
-                  value="http://localhost:3000/thank-you"
+                  value="https://great-mart-piyush.vercel.app/thank-you"
                 />
 
                 <div className="form-group my-3">
