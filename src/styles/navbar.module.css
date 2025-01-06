@@ -23,6 +23,13 @@
   margin-left: -2rem;
 }
 
+/* .navbar-right-logo{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  justify-content: flex-end;
+} */
+
 @keyframes fadeIn {
   from {
     opacity: 0;

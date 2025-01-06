@@ -109,14 +109,16 @@ const Cart = () => {
                               className="btn btn-outline-danger"
                               onClick={() => removeItem(item)}
                             >
-                              <i className="fas fa-minus"></i>
+                              
+                              <i class="fa fa-minus"></i>
+
                             </button>
                             <p className="qtyText">{item.qty}</p>
                             <button
                               className="btn btn-outline-success"
                               onClick={() => addItem(item)}
                             >
-                              <i className="fas fa-plus"></i>
+                              <i className="fa fa-plus"></i>
                             </button>
                           </div>
                         </div>

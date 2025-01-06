@@ -16,6 +16,23 @@ const Main = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
 
+  
+  // Preload the image when the component mounts
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.href =
+        "https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/home-banner.webp";
+      link.as = "image";
+      document.head.appendChild(link);
+
+      return () => {
+        document.head.removeChild(link); // Clean up 
+      };
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,8 +81,10 @@ const Main = () => {
           <div className="card bg-dark text-white border-0 mx-3">
             <img
               className={`${styles['card-img']}`}
-              src="./assets/cart.png"
+              src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/home-banner.webp"
               alt="background"
+              height='auto'
+              width="100%"      
             />
             <div className="card-img-overlay d-flex align-items-center">
               <div className="container">

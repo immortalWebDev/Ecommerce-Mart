@@ -88,7 +88,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                Know Us
+                Story
               </NavLink>
             </li>
             <li className="nav-item px-3">
@@ -100,7 +100,7 @@ const Navbar = () => {
                     : "nav-link text-dark fs-5"
                 }
               >
-                Contact Us
+                Contact
               </NavLink>
             </li>
           </ul>
@@ -183,7 +183,7 @@ const Navbar = () => {
                   )}
                 </div>
 
-                <span>
+                <span style={{display:'flex',flexWrap:'nowrap',gap:'2px',marginLeft:'2rem'}}>
                   <img
                     src="https://cdn-icons-png.flaticon.com/512/8539/8539117.png"
                     style={{ width: "45px", height: "45px", marginLeft: "2px" }}

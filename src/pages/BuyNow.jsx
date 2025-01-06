@@ -246,7 +246,7 @@ const BuyNow = () => {
             />
           </svg>
         </div>
-        <div className="row my-5 py-5">
+        <div className="row my-2 py-2">
           <div className="d-none d-md-block">
             <h2 className="">Peope have also bought:</h2>
             <Marquee pauseOnHover={true} pauseOnClick={true} speed={60}>

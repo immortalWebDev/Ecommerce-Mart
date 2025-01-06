@@ -36,9 +36,10 @@ const AboutPage = () => {
             <div className={`h-100 shadow-lg border-0 ${styles['card']}`}>
               <img
                 className={`img-fluid rounded-top ${styles['card-img-top']}`}
-                src="\assets\womens-clothing.jpg"
+                src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/womens-clothing.webp"
                 alt="Women's Clothing"
                 height={160}
+                loading="lazy"
               />
               <div className={`text-center ${styles['card-body']}`}>
                 <h5 className={`fw-bold ${styles[`card-title`]}`}>Her Fashion</h5>
@@ -50,9 +51,10 @@ const AboutPage = () => {
             <div className={`h-100 shadow-lg border-0 ${styles['card']}`}>
               <img
                 className={`img-fluid rounded-top ${styles['card-img-top']}`}
-                src="\assets\jewelry.jpg"
+                src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/jewelry.webp"
                 alt="Jewelry"
                 height={160}
+                loading="lazy"
               />
               <div className={`text-center ${styles['card-body']}`}>
                 <h5 className={`fw-bold ${styles[`card-title`]}`}>Gems & Adornments</h5>
@@ -64,9 +66,10 @@ const AboutPage = () => {
             <div className={`h-100 shadow-lg border-0 ${styles['card']}`}>
               <img
                 className={`img-fluid rounded-top ${styles['card-img-top']}`}
-                src="\assets\mens-clothing.jpg"
+                src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/mens-clothing.webp"
                 alt="Men's Clothing"
                 height={160}
+                loading="lazy"
               />
               <div className={`text-center ${styles['card-body']}`}>
                 <h5 className={`fw-bold ${styles[`card-title`]}`}>His Fashion</h5>
@@ -78,9 +81,10 @@ const AboutPage = () => {
             <div className={`h-100 shadow-lg border-0 ${styles['card']}`}>
               <img
                 className={`img-fluid rounded-top ${styles['card-img-top']}`}
-                src="\assets\comp-electronics.jpeg"
+                src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/comp-electronics.webp"
                 alt="Electronics"
                 height={160}
+                loading="lazy"
               />
               <div className={`text-center ${styles['card-body']}`}>
                 <h5 className={`fw-bold ${styles[`card-title`]}`}>Gadgets</h5>
