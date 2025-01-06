@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import App from "./App";
 import "./bootstrap-custom.scss"
-import reportWebVitals from "./reportWebVitals";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +15,3 @@ root.render(
     </BrowserRouter>
   </Provider>
 );
-
-
-// Call the reportWebVitals function
-reportWebVitals();
