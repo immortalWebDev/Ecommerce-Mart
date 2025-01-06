@@ -18,4 +18,4 @@ root.render(
 
 
 // Call the reportWebVitals function
-reportWebVitals(logWebVitals);
+reportWebVitals();

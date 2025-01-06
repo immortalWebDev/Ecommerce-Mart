@@ -24,17 +24,17 @@ const Footer = () => {
             <p className="mb-md-3 mb-2 fs-6 text-muted">
               Crafted with ❤️ by {" "}
               <a
-                href="my portfolio link"
+                href="https://web-portfolio-piyush.vercel.app/"
                 className="text-primary text-decoration-none fw-bold"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.2)" }}
               >
-                Piyush Badgujar
+                Piyush
               </a>
             </p>
             <a
-              href="my git link"
+              href="https://github.com/immortalWebDev"
               className="fs-4 text-dark mx-3"
               target="_blank"
               rel="noreferrer"
@@ -48,7 +48,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="my portfolio link"
+              href="https://web-portfolio-piyush.vercel.app/"
               className="fs-4 text-dark mx-3"
               target="_blank"
               rel="noreferrer"
