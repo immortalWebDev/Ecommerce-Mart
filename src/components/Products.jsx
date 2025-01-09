@@ -15,33 +15,58 @@ const Products = () => {
   const [loading, setLoading] = useState(false);
 
   const componentMounted = useRef(true);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-  const userEmail = useSelector((state) => state.auth.userEmail)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userEmail = useSelector((state) => state.auth.userEmail);
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
     dispatch(addCart(product));
     if (isAuthenticated && userEmail) {
-      dispatch(syncCartWithFirebase(userEmail)); 
+      dispatch(syncCartWithFirebase(userEmail));
     }
   };
 
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_STORE_URL}`);
-      if (componentMounted.current) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
-        setLoading(false);
-      }
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_PRIMARY_STORE}`
+        );
 
-      return () => {
-        componentMounted.current = false;
-      };
+        if (!response.ok) {
+          throw Error("Failed fetching products..");
+        }
+
+        const data = await response.json();
+
+        if (componentMounted.current) {
+          setData(data);
+          setFilter(data);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.log("Error fetching products", err);
+        toast.error("Oops, Please retry..", {
+          duration: 3000,
+          position: "top-right",
+          style: {
+            marginTop: "4rem",
+            color: "red",
+          },
+        });
+      } finally {
+        if (componentMounted.current) {
+          setLoading(false);
+        }
+      }
     };
 
     getProducts();
+
+    return () => {
+      componentMounted.current = false;
+    };
   }, []);
 
   const Loading = () => {
@@ -64,7 +89,9 @@ const Products = () => {
   const ShowProducts = () => {
     return (
       <>
-        <div className={`d-flex flex-wrap justify-content-center gap-4 py-4 ${styles['category-buttons']}`}>
+        <div
+          className={`d-flex flex-wrap justify-content-center gap-4 py-4 ${styles["category-buttons"]}`}
+        >
           <button
             className="btn btn-primary btn-sm text-white px-4 py-2"
             onClick={() => setFilter(data)}
@@ -81,7 +108,7 @@ const Products = () => {
             style={{
               background: "linear-gradient(to right, #9aa5ec, #a56be1)",
               border: "none",
-              
+
               borderRadius: "20px",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             }}
@@ -149,7 +176,7 @@ const Products = () => {
                       {product.title.substring(0, 15)}...
                     </h5>
                     <p className="card-text text-muted small">
-                      {product.description.substring(0, 90)}...
+                      {product.description.substring(0, 60)}...
                     </p>
                   </div>
                   <ul className="list-group list-group-flush">
@@ -164,25 +191,25 @@ const Products = () => {
                     >
                       Buy Now
                     </Link>
-                   { isAuthenticated && <button
-                      className="btn btn-outline-primary btn-sm"
-                      onClick={() => {
-                        toast.dismiss();
-                        toast.success("Added to cart",{
-                          duration:1000,
-                          position: 'top-right',
-                          style: {
-                            marginTop: "4rem",
-                            color: '#0275d8'
-                          },
-                          
-
-                        });
-                        addProduct(product);
-                      }}
-                    >
-                      Add to Cart
-                    </button>}
+                    {isAuthenticated && (
+                      <button
+                        className="btn btn-outline-primary btn-sm"
+                        onClick={() => {
+                          toast.dismiss();
+                          toast.success("Added to cart", {
+                            duration: 1000,
+                            position: "top-right",
+                            style: {
+                              marginTop: "4rem",
+                              color: "#0275d8",
+                            },
+                          });
+                          addProduct(product);
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

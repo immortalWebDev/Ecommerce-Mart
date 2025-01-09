@@ -6,10 +6,13 @@ import { setCart } from "../redux/slices/cartSlice";
 import { fetchUserProfile } from "../utils/firebaseHelper";
 import { ClipLoader } from "react-spinners";
 import styles from "../styles/main.module.css"
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css"; 
 
 const Main = () => {
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isBannerLoading, setIsBannerLoading] = useState(true);
 
   const dispatch = useDispatch();
   const userEmail = useSelector((state) => state.auth.userEmail);
@@ -79,12 +82,15 @@ const Main = () => {
           </div>
         ) : (
           <div className="card bg-dark text-white border-0 mx-3">
+          {isBannerLoading && <Skeleton height={480} width="100%"/>}
             <img
               className={`${styles['card-img']}`}
               src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/home-banner.webp"
-              alt="background"
+              alt="background-banner"
               height='auto'
-              width="100%"      
+              width="100%"     
+              onLoad={() => setIsBannerLoading(false)}
+ 
             />
             <div className="card-img-overlay d-flex align-items-center">
               <div className="container">

@@ -4,31 +4,34 @@ import { Footer, Navbar } from "../components/componentsExpo";
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    //Manually submit (for state loading)
     const form = e.target;
-    fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Redirect to the thank-you page
-          window.location.href = form._next.value;
-        } else {
-          alert("Something went wrong. Please try again!");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Error submitting the form. Please try again!");
-      })
-      .finally(() => {
-        setIsLoading(false);
+
+    try {
+      setIsLoading(true);
+
+      // Create FormData and make the request
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
       });
+
+      if (response.ok) {
+        window.location.href = form._next.value;
+      } else {
+        const errorMessage = `Something went wrong. Status: ${response.status}`;
+        console.error(errorMessage);
+        alert("Something went wrong. Please try again!");
+      }
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+      alert(
+        "Error submitting the form. Please check your connection and try again!"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

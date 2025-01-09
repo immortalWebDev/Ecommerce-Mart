@@ -8,7 +8,7 @@ import { Footer, Navbar } from "../components/componentsExpo";
 import { syncCartWithFirebase } from "../utils/firebaseHelper";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import styles from "../styles/buyNow.module.css"
+import styles from "../styles/buyNow.module.css";
 
 const BuyNow = () => {
   const { id } = useParams();
@@ -41,18 +41,42 @@ const BuyNow = () => {
 
   useEffect(() => {
     const getProduct = async () => {
-      setLoading(true);
-      setLoading2(true);
-      const response = await fetch(`${process.env.REACT_APP_STORE_URL}${id}`);
-      const data = await response.json();
-      setProduct(data);
-      setLoading(false);
-      const response2 = await fetch(
-        `${process.env.REACT_APP_STORE_URL}category/${data.category}`
-      );
-      const data2 = await response2.json();
-      setSimilarProducts(data2);
-      setLoading2(false);
+      try {
+        setLoading(true);
+        setLoading2(true);
+        const response = await fetch(`${process.env.REACT_APP_STORE_URL}/${id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch product details");
+        }
+
+        const data = await response.json();
+        setProduct(data);
+        setLoading(false);
+
+        const response2 = await fetch(
+          `${process.env.REACT_APP_STORE_URL}/category/${data.category}`
+        );
+
+        if (!response2.ok) {
+          throw new Error("Failed to fetch similar products");
+        }
+        const data2 = await response2.json();
+        setSimilarProducts(data2);
+        setLoading2(false);
+      } catch (err) {
+        console.log("Error while fetching data", err);
+        toast.error("Oops, Something went wrong", {
+          duration: 2000,
+          position: "top-right",
+          style: {
+            marginTop: "4rem",
+            color: "red",
+          },
+        });
+        setLoading(false);
+        setLoading2(false);
+      }
     };
     getProduct();
   }, [id]);
@@ -102,7 +126,7 @@ const BuyNow = () => {
           <div className="row align-items-center">
             <div className="col-md-6 col-sm-12 py-3 text-center">
               <img
-                className={` rounded-4 shadow border border-warning ${styles['product-image']}`}
+                className={` rounded-4 shadow border border-warning ${styles["product-image"]}`}
                 src={product.image}
                 alt={product.title}
               />
@@ -134,7 +158,7 @@ const BuyNow = () => {
                 <p className="lead">{product.description}</p>
               </div>
 
-              <div className={`text-center ${styles['button-group']}`}>
+              <div className={`text-center ${styles["button-group"]}`}>
                 {isAuthenticated && (
                   <button
                     className="btn btn-primary px-4 py-2 me-3"
@@ -143,7 +167,10 @@ const BuyNow = () => {
                     <i className="fa fa-cart-plus me-2"></i> Add to Cart
                   </button>
                 )}
-                <Link to={isAuthenticated ? '/cart' : '/login'} className="btn btn-info px-4 py-2">
+                <Link
+                  to={isAuthenticated ? "/cart" : "/login"}
+                  className="btn btn-info px-4 py-2"
+                >
                   <i className="fa fa-shopping-cart me-2"></i> Proceed to Buy
                 </Link>
               </div>
@@ -260,4 +287,4 @@ const BuyNow = () => {
   );
 };
 
-export default BuyNow
+export default BuyNow;
