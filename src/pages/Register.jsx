@@ -40,7 +40,7 @@ const Register = () => {
       );
 
       const data = response.data;
-      console.log("User registered successfully", data.email);
+      // console.log("User registered successfully", data.email);
 
       // Show success toast
       toast.success("Heyy, Registration successful! Redirecting to login...", {

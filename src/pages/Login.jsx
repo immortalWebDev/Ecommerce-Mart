@@ -48,7 +48,7 @@ const Login = () => {
           },
       });
 
-      console.log("Imp data dispatched to store");
+      // console.log("Imp data dispatched to store");
       dispatch(
         login({
           email: data.email,
@@ -59,7 +59,7 @@ const Login = () => {
         })
       );
 
-      console.log("navigated to home page after success login and updating state via redux");
+      // console.log("navigated to home page after success login and updating state via redux");
       navigate("/");
     } catch (err) {
       console.error("Authentication failed", err);

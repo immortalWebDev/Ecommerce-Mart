@@ -110,7 +110,7 @@ const Cart = () => {
                               onClick={() => removeItem(item)}
                             >
                               
-                              <i class="fa fa-minus"></i>
+                              <i className="fa fa-minus"></i>
 
                             </button>
                             <p className="qtyText">{item.qty}</p>

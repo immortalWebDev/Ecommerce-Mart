@@ -23,7 +23,7 @@ export const updateCartInFirebase = async (userEmail, cart) => {
       `${BASE_URL}/carts/${sanitizedEmail}.json`,
       cart
     );
-    console.log("Cart updated in Firebase:", response.data);
+    // console.log("Cart updated in Firebase:", response.data);
     return response.data;
   } catch (error) {
     console.error(
@@ -43,7 +43,7 @@ export const getCartFromFirebase = async (userEmail) => {
     const response = await axios.get(
       `${BASE_URL}/carts/${sanitizedEmail}.json`
     );
-    console.log("Cart fetched from Firebase:", response.data);
+    // console.log("Cart fetched from Firebase:", response.data);
     return response.data || [];
   } catch (error) {
     console.error(
@@ -64,7 +64,7 @@ export const clearCartFirebase = async (userEmail) => {
       `${BASE_URL}/carts/${sanitizedEmail}.json`
     );
 
-    console.log("Cart cleared in Firebase:", response.data);
+    // console.log("Cart cleared in Firebase:", response.data);
     return response.data;
   } catch (error) {
     console.error(
@@ -79,28 +79,29 @@ export const clearCartFirebase = async (userEmail) => {
 
 export const updateUserProfile = async (name, idToken) => {
 
-  let updatedProfile;
+  // let updatedProfile;
   try {
     const response = await axios.post(`${CREATE_USER}${API_KEY}`, {
       idToken: idToken,
       displayName: name,
       returnSecureToken: true,
     });
-    updatedProfile =  response.data
+    // updatedProfile =  response.data
     return response.data;
   } catch (error) {
     // console.error("Error updating profile:", error.message);
     console.error("Error updating profile:", error.response?.data || error.message);
 
     //   throw error;
-  }finally{
-    if (updatedProfile) {
-      console.log("Profile updated successfully:", updatedProfile);
-    } else {
-      console.log("Profile update failed.");
-    }
-
   }
+  // finally{
+  //   if (updatedProfile) {
+  //     console.log("Profile updated successfully:", updatedProfile);
+  //   } else {
+  //     console.log("Profile update failed.");
+  //   }
+
+  // }
 };
 
 
@@ -161,8 +162,9 @@ export const getFreshToken = async () => {
     const expiresIn = response.data.expires_in;
 
     // console.log(response.data); //email doesnt come with this
+    window.location.reload(); //For new token to take effect for profile fetch
 
-    console.log("Fetched new token from Firebase bcz old token expired");
+    // console.log("Fetched new token from Firebase bcz old token expired");
     // Update tokens in localStorage
     localStorage.setItem("token", newIdToken);
     localStorage.setItem("refreshToken", newRefreshToken);

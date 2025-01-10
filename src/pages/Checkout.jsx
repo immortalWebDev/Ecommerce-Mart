@@ -31,7 +31,7 @@ const Checkout = () => {
       }
       finally{
         setIsLoading(false)
-        console.log('Order placed successfully of:', userEmail )
+        // console.log('Order placed successfully of:', userEmail )
       }
     } else {
       navigate("/login");

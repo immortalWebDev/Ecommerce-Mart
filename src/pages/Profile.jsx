@@ -79,9 +79,9 @@ const Profile = () => {
 
       const getTokenCall = await getToken();
     
-      console.log('Updated name:',name)
+      // console.log('Updated name:',name)
       const localToken = localStorage.getItem('token')
-      console.log('stateToken == LStoken == getToken(): ',token ===  localToken && localToken === getTokenCall)
+      // console.log('stateToken == LStoken == getToken(): ',token ===  localToken && localToken === getTokenCall)
       
       updateUserProfile(name, idToken);
     } catch (err) {
@@ -168,7 +168,7 @@ const Profile = () => {
       );
 
       setVerificationSent(true);
-      console.log("Verification link sent successfully:", response.data);
+      // console.log("Verification link sent successfully:", response.data);
     } catch (error) {
       console.error("Error sending verification link:", error);
       setVerificationSent(false);
@@ -187,7 +187,7 @@ const Profile = () => {
           }
         );
 
-         console.log('Check email verification here',response.data.users[0])
+        //  console.log('Check email verification here',response.data.users[0])
         const isVerified = response.data.users[0]?.emailVerified;
         setEmailVerified(isVerified);
       } catch (error) {
