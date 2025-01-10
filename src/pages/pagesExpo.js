@@ -11,3 +11,4 @@ export { default as PageNotFound404Error } from './PageNotFound404Error';
 export { default as Profile } from './Profile';
 export { default as ThankYou } from './ThankYou';
 export { default as Success } from './Success';
+export { default as NetworkCheck} from './NetworkCheck'
