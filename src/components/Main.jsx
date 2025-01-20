@@ -78,13 +78,13 @@ const Main = () => {
             <ClipLoader color="blue" size={60} />
           </div>
         ) : (
-          <div className="card bg-dark text-white border-0 mx-3">
+          <div className="card text-white border-0 mx-3" style={{backgroundColor: "#95A6FF" , aspectRatio:"1920/700", width:"100%"}}>
             <img
               className={`${styles['card-img']}`}
               src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@fa4f40cc754803fc272bc18c296f72bf7133e974/great-mart/home-banner.webp"
               alt="background"
               height='auto'
-              width="100%"      
+              width="100%"  
             />
             <div className="card-img-overlay d-flex align-items-center">
               <div className="container">
