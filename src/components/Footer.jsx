@@ -24,7 +24,7 @@ const Footer = () => {
             <p className="mb-md-3 mb-2 fs-6 text-muted">
               Crafted with ❤️ by {" "}
               <a
-                href="https://web-portfolio-piyush.vercel.app/"
+                href="https://www.snapit.tech/pgbadgujar007/5w3jtzcp1e"
                 className="text-primary text-decoration-none fw-bold"
                 target="_blank"
                 rel="noreferrer"
@@ -34,7 +34,7 @@ const Footer = () => {
               </a>
             </p>
             <a
-              href="https://github.com/immortalWebDev"
+              href="https://github.com/immortalWebDev/Ecommerce-Mart"
               className="fs-4 text-dark mx-3"
               target="_blank"
               rel="noreferrer"
