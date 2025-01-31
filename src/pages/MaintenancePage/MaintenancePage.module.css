@@ -1,0 +1,54 @@
+.maintenanceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+  color: #333;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #22a7ff; 
+}
+
+.message {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.quote {
+  font-size: 1.5rem;
+  font-style: italic;
+  border-left: 4px solid #ff5722; 
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+.quoteFooter {
+  font-size: 1rem;
+  color: #555;
+}
+
+.signature {
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 20px;
+}
+
+
+footer{
+  background-color: inherit;
+}
+
+@media(max-width:670px){
+  .title{
+    font-size: 2rem;
+
+  }
+}
