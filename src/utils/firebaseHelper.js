@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_FIREBASE_RTDB;
-const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
-const CREATE_USER = process.env.REACT_APP_FB_USER_PROF_CREATE_UPDATE;
-const LOOKUP_USER = process.env.REACT_APP_USER_LOOKUP;
-const NEW_TOKEN =  process.env.REACT_APP_NEW_JWT_TOKEN
+const BASE_URL = import.meta.env.VITE_FIREBASE_RTDB;
+const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
+const CREATE_USER = import.meta.env.VITE_FB_USER_PROF_CREATE_UPDATE;
+const LOOKUP_USER = import.meta.env.VITE_USER_LOOKUP;
+const NEW_TOKEN =  import.meta.env.VITE_NEW_JWT_TOKEN
 
 export const sanitizeEmail = (email) => {
   if (!email) {

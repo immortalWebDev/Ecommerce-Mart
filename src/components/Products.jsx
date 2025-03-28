@@ -31,7 +31,7 @@ const Products = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_PRIMARY_STORE}`
+          `${import.meta.env.VITE_PRIMARY_STORE}`
         );
 
         if (!response.ok) {

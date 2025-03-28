@@ -44,7 +44,7 @@ const BuyNow = () => {
       try {
         setLoading(true);
         setLoading2(true);
-        const response = await fetch(`${process.env.REACT_APP_STORE_URL}/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_STORE_URL}/${id}`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch product details");
@@ -55,7 +55,7 @@ const BuyNow = () => {
         setLoading(false);
 
         const response2 = await fetch(
-          `${process.env.REACT_APP_STORE_URL}/category/${data.category}`
+          `${import.meta.env.VITE_STORE_URL}/category/${data.category}`
         );
 
         if (!response2.ok) {

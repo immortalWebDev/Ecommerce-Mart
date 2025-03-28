@@ -22,11 +22,11 @@ const Login = () => {
     setIsLoading(true);
     setError(null);
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_SIGN_IN_URL}${apiKey}`,
+        `${import.meta.env.VITE_SIGN_IN_URL}${apiKey}`,
         {
           email,
           password,
@@ -76,10 +76,10 @@ const Login = () => {
     setError(null);
     setMessage(null);
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
     try {
-      await axios.post(`${process.env.REACT_APP_PASSWORD_RESET_URL}${apiKey}`, {
+      await axios.post(`${import.meta.env.VITE_PASSWORD_RESET_URL}${apiKey}`, {
         requestType: "PASSWORD_RESET",
         email,
       });

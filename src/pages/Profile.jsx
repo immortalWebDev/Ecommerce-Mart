@@ -23,10 +23,10 @@ const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const FIREBASE_DB_URL = process.env.REACT_APP_FIREBASE_RTDB;
-  const FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
-  const FIREBASE_VERIFY_EMAIL = process.env.REACT_APP_FB_VERIFY_EMAIL;
-  const FB_USER_LOOKUP = process.env.REACT_APP_USER_LOOKUP
+  const FIREBASE_DB_URL = import.meta.env.VITE_FIREBASE_RTDB;
+  const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
+  const FIREBASE_VERIFY_EMAIL = import.meta.env.VITE_FB_VERIFY_EMAIL;
+  const FB_USER_LOOKUP = import.meta.env.VITE_USER_LOOKUP
 
   const email = useSelector((state) => state.auth.userEmail);
   const token = useSelector((state) => state.auth.token);

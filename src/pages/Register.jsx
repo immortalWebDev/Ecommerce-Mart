@@ -26,12 +26,12 @@ const Register = () => {
     setError(null);
 
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
     try {
 
       const response = await axios.post(
-        `${process.env.REACT_APP_SIGN_UP_URL}${apiKey}`,
+        `${import.meta.env.VITE_SIGN_UP_URL}${apiKey}`,
         {
           email,
           password,

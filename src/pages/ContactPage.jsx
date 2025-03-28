@@ -49,7 +49,7 @@ const ContactPage = () => {
           <div className="col-md-6 col-lg-5 mx-auto">
             <div className="card shadow p-4">
               <form
-                action={`${process.env.REACT_APP_FORM_SUBMIT_URL}`}
+                action={`${import.meta.env.VITE_FORM_SUBMIT_URL}`}
                 method="POST"
                 onSubmit={handleSubmit}
               >
