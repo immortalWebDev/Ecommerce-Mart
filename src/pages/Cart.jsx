@@ -113,7 +113,7 @@ const Cart = () => {
                               <i className="fa fa-minus"></i>
 
                             </button>
-                            <p className="qtyText">{item.qty}</p>
+                            <p className="qtyText mb-0 d-flex align-items-center">{item.qty}</p>
                             <button
                               className="btn btn-outline-success"
                               onClick={() => addItem(item)}
