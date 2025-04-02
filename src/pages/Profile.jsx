@@ -80,7 +80,7 @@ const Profile = () => {
       const getTokenCall = await getToken();
     
       // console.log('Updated name:',name)
-      const localToken = localStorage.getItem('token')
+      // const localToken = localStorage.getItem('token')
       // console.log('stateToken == LStoken == getToken(): ',token ===  localToken && localToken === getTokenCall)
       
       updateUserProfile(name, idToken);
@@ -114,9 +114,14 @@ const Profile = () => {
 
       const sanitizedEmail = sanitizeEmail(email);
 
+      // Check for cached data in localStorage
+    const cachedData = localStorage.getItem("userProfile");
+    const cacheTimestamp = localStorage.getItem("userProfileTimestamp");
+
       // Check for cached..stored user data in localStorage (reduce load time)
-      const cachedData = localStorage.getItem("userProfile");
-      if (cachedData) {
+      
+      if (cachedData && cacheTimestamp && Date.now() - cacheTimestamp < 3600000) {
+        console.log("used cached data")
         const { displayName, photoUrl, address, phone, pinCode } =
           JSON.parse(cachedData);
         setName(displayName || "");
@@ -124,6 +129,8 @@ const Profile = () => {
         setAddress(address || "");
         setPhone(phone || "");
         setPinCode(pinCode || "");
+        setLoadingProfile(false); // Stop loading since we used cached data
+        return; // Skip the API call
       }
 
       try {
@@ -141,6 +148,8 @@ const Profile = () => {
 
           // Save data to localStorage for future use
           localStorage.setItem("userProfile", JSON.stringify(userData));
+          localStorage.setItem("userProfileTimestamp", Date.now());
+
         } else {
           setError("Profile is not updated.");
         }
