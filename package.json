@@ -2,6 +2,7 @@
   "name": "ecommerce",
   "version": "2.0.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "@vitejs/plugin-react": "^4.3.4",
