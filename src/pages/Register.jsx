@@ -56,9 +56,24 @@ const Register = () => {
       setTimeout(() => navigate("/login"), 3000);
       
     //   navigate("/login");
-    } catch (err) {
-      console.error("Signup failed", err);
-      setError("Signup failed. Please try again.");
+    } catch (error) {
+      console.error("Signup failed", error);
+       
+      const { data } = error.response;
+      const { message } = data.error;
+      if(message === "EMAIL_EXISTS")
+      {
+        setError("This email is already registered. Please log in instead.");
+      }
+      else if(message === "INVALID_LOGIN_CREDENTIALS")
+      {
+        setError("You have entered invalid credentials!")
+      }
+      else
+      {
+        setError("Authentication error, Try again!")
+      }
+      
     } finally {
       setIsLoading(false);
     }

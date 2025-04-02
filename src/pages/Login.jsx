@@ -61,9 +61,23 @@ const Login = () => {
 
       // console.log("navigated to home page after success login and updating state via redux");
       navigate("/");
-    } catch (err) {
-      console.error("Authentication failed", err);
-      setError("Authentication failed. Invalid email or password.");
+    } catch (error) {
+      console.error("Authentication failed", error);
+      // setError("Authentication failed. Invalid email or password.");
+      const { data } = error.response;
+      const { message } = data.error;
+      if(message === "EMAIL_EXISTS")
+      {
+        setError("This email is already registered. Please log in instead.");
+      }
+      else if(message === "INVALID_LOGIN_CREDENTIALS")
+      {
+        setError("You have entered invalid credentials!")
+      }
+      else
+      {
+        setError("Authentication error, Try again!")
+      }
     } finally {
       setIsLoading(false);
     }
