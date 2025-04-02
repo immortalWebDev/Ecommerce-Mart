@@ -18,9 +18,10 @@ export const sanitizeEmail = (email) => {
 export const updateCartInFirebase = async (userEmail, cart) => {
   try {
     const sanitizedEmail = sanitizeEmail(userEmail);
+    const token = await getToken();  //  Get the valid token
 
     const response = await axios.put(
-      `${BASE_URL}/carts/${sanitizedEmail}.json`,
+      `${BASE_URL}/carts/${sanitizedEmail}.json?auth=${token}`,
       cart
     );
     // console.log("Cart updated in Firebase:", response.data);
@@ -35,13 +36,14 @@ export const updateCartInFirebase = async (userEmail, cart) => {
 };
 
 
-//upon login 
+//upon login and profile refresh or page refresh
 export const getCartFromFirebase = async (userEmail) => {
   try {
     const sanitizedEmail = sanitizeEmail(userEmail);
+    const token = await getToken();  //  Get the valid token
 
     const response = await axios.get(
-      `${BASE_URL}/carts/${sanitizedEmail}.json`
+      `${BASE_URL}/carts/${sanitizedEmail}.json?auth=${token}`
     );
     // console.log("Cart fetched from Firebase:", response.data);
     return response.data || [];
@@ -59,9 +61,10 @@ export const getCartFromFirebase = async (userEmail) => {
 export const clearCartFirebase = async (userEmail) => {
   try {
     const sanitizedEmail = sanitizeEmail(userEmail);
+    const token = await getToken();  // Get the valid token
 
     const response = await axios.delete(
-      `${BASE_URL}/carts/${sanitizedEmail}.json`
+      `${BASE_URL}/carts/${sanitizedEmail}.json?auth=${token}`
     );
 
     // console.log("Cart cleared in Firebase:", response.data);
@@ -156,19 +159,21 @@ export const getFreshToken = async () => {
         refresh_token: refreshToken,
       }
     );
-
+    //  console.log(response.data)
     const newIdToken = response.data.id_token;
     const newRefreshToken = response.data.refresh_token;
     const expiresIn = response.data.expires_in;
+    // console.log(expiresIn)
 
     // console.log(response.data); //email doesnt come with this
-    window.location.reload(); //For new token to take effect for profile fetch
+    // window.location.reload(); //For new token to take effect for profile fetch
 
     // console.log("Fetched new token from Firebase bcz old token expired");
     // Update tokens in localStorage
     localStorage.setItem("token", newIdToken);
     localStorage.setItem("refreshToken", newRefreshToken);
     localStorage.setItem("tokenExpiry", Date.now() + expiresIn * 1000);
+    console.log("Fresh token set")
 
     return newIdToken;
   } catch (error) {
@@ -186,6 +191,10 @@ export const getToken = async () => {
   if (token && Date.now() < tokenExpiry) {
     return token;
   } else {
-    return await getFreshToken();
+    alert("Session expired. Needs a refresh")
+    // return await getFreshToken();
+    const newToken = await getFreshToken(); // Fetch a new token
+    window.location.reload(); // Reload the page after fetching the new token
+    return newToken; // This will execute before the reload
   }
 };
