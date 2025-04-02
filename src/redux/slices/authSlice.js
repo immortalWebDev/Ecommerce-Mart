@@ -45,6 +45,7 @@ const authSlice = createSlice({
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("tokenExpiry");
       localStorage.removeItem("userName");
+      localStorage.removeItem("userProfileTimestamp");
     },
   },
 });
