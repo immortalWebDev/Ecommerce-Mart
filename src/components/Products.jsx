@@ -31,7 +31,7 @@ const Products = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_PRIMARY_STORE}`
+          `${import.meta.env.VITE_STORE_URL}`
         );
 
         if (!response.ok) {
