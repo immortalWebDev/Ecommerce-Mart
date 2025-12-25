@@ -24,15 +24,29 @@ const App = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userEmail = useSelector((state) => state.auth.userEmail);
+  const currentCart = useSelector((state) => state.cart);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (userEmail) {
-          const cart = await getCartFromFirebase(userEmail);
-          dispatch(setCart(cart));
-          localStorage.setItem("cart", JSON.stringify(cart));
+          const firebaseCart = await getCartFromFirebase(userEmail);
+
+          const isCartDifferent = JSON.stringify(currentCart) !== JSON.stringify(firebaseCart);
+           if (isCartDifferent) {
+            dispatch(setCart(firebaseCart));
+            localStorage.setItem("cart", JSON.stringify(firebaseCart));
+          }
         }
+
+        // toast.success("Cart synced successfully!", {
+        //   duration: 2000,
+        //   position: "top-right",
+        //   style: {
+        //     marginTop: "4rem",
+        //     color: "#0275d8",
+        //   },
+        // });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
