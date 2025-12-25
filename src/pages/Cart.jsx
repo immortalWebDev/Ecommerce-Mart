@@ -54,6 +54,7 @@ const Cart = () => {
             <i className="fa fa-arrow-left"></i> Back to Shopping
           </Link>
         </div>
+        <img src="https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@064d19a3f47dcbbce412c2b8cab5ec9e8c4b0e01/great-mart/empty-cart.webp" alt="empty_cart" height="fit-content" width="fit-content" />
       </div>
     </div>
   );
