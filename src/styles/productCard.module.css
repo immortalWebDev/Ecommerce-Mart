@@ -18,3 +18,63 @@
   }
 
 }
+/* 
+.ai-glow {
+  position: relative;
+  z-index: 0;
+}
+
+.ai-glow::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #e7c963, #a6b8d3, #946fd8);
+  filter: blur(8px);
+  opacity: 0.7;
+  z-index: -1;
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.4; }
+} */
+
+
+.ai-runner {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ai-runner::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    90deg,
+    #00f0ff,
+    #0d6efd,
+    #6f42c1,
+    #00f0ff
+  );
+  background-size: 300% 300%;
+  animation: runBorder 2s linear infinite;
+  z-index: -1;
+}
+
+.ai-runner::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--bs-body-bg);
+  border-radius: 1rem;
+  z-index: -1;
+}
+
+@keyframes runBorder {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}

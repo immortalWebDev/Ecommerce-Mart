@@ -8,11 +8,14 @@ import toast from "react-hot-toast";
 import styles from "../styles/productCard.module.css";
 import { syncCartWithFirebase } from "../utils/firebaseHelper";
 import { useSelector } from "react-redux";
+import { handleAI } from "../utils/handleAI";
+import { BarLoader } from "react-spinners";
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
+  const [aiLoading,setAiLoading] = useState(false)
 
   const componentMounted = useRef(true);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -154,6 +157,16 @@ const Products = () => {
           >
             <i className="fa fa-tv me-2"></i> Digital Accessories
           </button>
+           {isAuthenticated && <button
+              // disabled={aiLoading} 
+              className={`btn shadow rounded-5 btn-gradient d-flex align-items-center flex-column btn-sm px-4 py-2 ${styles[!aiLoading ? "ai-runner" : ""]}`}
+              onClick={() => handleAI(data,setFilter,setAiLoading)}
+              >
+               {aiLoading ? "🤖Let the AI think..." : "⚡ Help me choose!"}
+                {aiLoading && <BarLoader size={7} color="#0275d8" />}
+
+            </button>}
+
         </div>
 
         <div className="row">

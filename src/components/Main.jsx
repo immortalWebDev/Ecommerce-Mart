@@ -6,11 +6,13 @@ import { setCart } from "../redux/slices/cartSlice";
 import { fetchUserProfile } from "../utils/firebaseHelper";
 import { ClipLoader } from "react-spinners";
 import styles from "../styles/main.module.css"
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const userEmail = useSelector((state) => state.auth.userEmail);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -94,10 +96,12 @@ const Main = () => {
                 <h5 className={`fs-1 text-primary fw-bold ${styles['card-title']}`}>
                   Exclusive Deals Waiting for you!
                 </h5>
-                <p className={`${styles['card-text']}`}>
+                <div className={`${styles['card-text']}`}>
                   Shop the Latest Trends and Save Big <br />
                   Hurry up - Limited Time Only!
-                </p>
+                  <hr style={{ width: "65%", marginLeft: 0 }} />
+                  {!isAuthenticated && <p>Login to use our <button className="badge bg-primary-subtle text-success border border-warning" onClick={() => navigate("/login")}>Smart AI filter!</button></p>}
+                </div>
               </div>
             </div>
           </div>
