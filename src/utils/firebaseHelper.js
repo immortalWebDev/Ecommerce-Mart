@@ -1,4 +1,5 @@
 import axios from "axios";
+import { purgeSession } from "./purgeSession";
 
 const BASE_URL = import.meta.env.VITE_FIREBASE_RTDB;
 const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
@@ -186,7 +187,18 @@ export const getToken = async () => {
     // alert("Session expired. Needs a refresh")
     if (!isRefreshing) {
       isRefreshing = true;
-      alert("Session expired. Wanna continue ?");
+      const wantsToContinue = confirm("Your session has expired. Wanna continue ?");
+
+      console.log(wantsToContinue)
+      if(!wantsToContinue)
+      {
+        purgeSession()
+        console.log("session purged upon user request..")
+        window.location.href = "/login";
+        console.log("And redirected to login..")
+        return
+      }
+      // alert("Session expired. Wanna continue ?");
       const newToken = await getFreshToken();
       window.location.reload();
       return newToken;

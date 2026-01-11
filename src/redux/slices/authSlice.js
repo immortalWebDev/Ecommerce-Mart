@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { purgeSession } from "../../utils/purgeSession";
 
 const initialAuthState = {
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")) || false,
@@ -37,15 +38,19 @@ const authSlice = createSlice({
       state.userEmail = null;
       state.userName = null;
 
-      localStorage.removeItem("isAuthenticated");
-      localStorage.removeItem("token");
-      localStorage.removeItem("userEmail");
-      localStorage.removeItem("cart");
-      localStorage.removeItem("userProfile");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("tokenExpiry");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("userProfileTimestamp");
+      // localStorage.removeItem("isAuthenticated");
+      // localStorage.removeItem("token");
+      // localStorage.removeItem("userEmail");
+      // localStorage.removeItem("cart");
+      // localStorage.removeItem("userProfile");
+      // localStorage.removeItem("refreshToken");
+      // localStorage.removeItem("tokenExpiry");
+      // localStorage.removeItem("userName");
+      // localStorage.removeItem("userProfileTimestamp");
+
+       purgeSession()
+       console.log("logout upon user request")
+       
     },
   },
 });
