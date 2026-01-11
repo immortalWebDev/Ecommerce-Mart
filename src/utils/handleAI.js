@@ -1,73 +1,53 @@
 import { puter } from "@heyputer/puter.js";
 import toast from "react-hot-toast";
+import { fetchUserProfile } from "./firebaseHelper";
 
-export const handleAI = async (products, setFilter,setAiLoading) => {
-  setAiLoading(true)
-  const userText = window.prompt("Tell me what you need:");
+export const handleAI = async (products, setFilter, setAiLoading) => {
+  setAiLoading(true);
+
+  const name = await fetchUserProfile()
+  const userText = window.prompt(`Hey ${name || "there"} 👋 What can I help you find today?`);
+
   if (!userText) return setAiLoading(false);
 
   const response = await puter.ai.chat(`
-You are an intent compiler.
+  You are a filtering engine.
 
-Never ask follow-up questions.
-If the intent is unclear, choose the closest matching category anyway.
-If input is unrelated, return ALL products and reply accordingly.
-Never return empty. 
-Always decide and return JSON.
+  Return ONLY valid JSON in this exact format:
 
-You MUST choose ONE of the following categories EXACTLY:
+  {
+    "reply": "The "reply" must be warm, friendly, and reassuring. Sound like a helpful shop assistant. Never sound robotic.",
+    "products": [ ...filtered products from the list ]
+  }
 
-electronics
-jewelery
-men's clothing
-women's clothing
+  Rules:
+  - Do NOT invent products
+  - Do NOT add text outside JSON
+  - Never return empty. Always find some closest matching product if prompt is unclear.
 
-Return ONLY JSON:
+  PRODUCTS:
+  ${JSON.stringify(products)}
 
-{
-  "reply": "friendly reply",
-  "category": "",
-  "maxPrice": 0,
-  "keywords": []
-}
+  USER QUERY:
+  ${userText}
+ `);
 
-User wants: ${userText}
-`);
+  let parsed;
+  try {
+    parsed = JSON.parse(response.message.content);
+    console.log(parsed)
+  } catch {
+    toast.error("Oops, our AI seems busy handling customers..");
+    setAiLoading(false);
+    return;
+  }
 
-console.log(response.message.content)
-
-  const result = response.message.content; 
-
-  const match = result.match(/\{[\s\S]*\}/);
-  if (!match) return alert("Umm..Something went wrong")
-
-  const parsed = JSON.parse(match[0]);
-  console.log(parsed)
-
-   // show toast
-    toast.success(parsed.reply, {
-    duration: 10000,
+  toast.success(parsed.reply, {
+    duration: 6000,
     position: "top-right",
-    style: {
-      marginTop: "4rem",
-      color: "#0275d8",
-    },
+    style: { marginTop: "4rem", color: "#0275d8" },
   });
 
-
-  let filtered = products;
-
-  if (parsed.category) filtered = filtered.filter(p => p.category === parsed.category);
-  if (parsed.maxPrice) filtered = filtered.filter(p => p.price <= parsed.maxPrice);
-  if (parsed.keywords?.length) {
-  const strict = filtered.filter(p =>
-    parsed.keywords.some(k =>
-      p.title.toLowerCase().includes(k.toLowerCase()))
-  );
-
-  if (strict.length > 0) filtered = strict;
-}
-
-  setFilter(filtered);
-  setAiLoading(false)
+  setFilter(parsed.products);
+  setAiLoading(false);
 };
