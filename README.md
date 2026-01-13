@@ -71,6 +71,7 @@ Explore the platform and enjoy an easy, convenient, and stylish online shopping 
 ### 📞 Contact
 
 - ***Email- pgbadgujar007@gmail,com***
+- 💬 **WhatsApp:** [Chat on WhatsApp](https://wa.me/917774835449)
 -  *Always ready to learn something new*
 
 #### Made with 💖 by Piyush

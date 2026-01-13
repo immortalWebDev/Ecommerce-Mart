@@ -24,7 +24,7 @@ const Footer = () => {
             <p className="mb-md-3 mb-2 fs-6 text-muted">
               Crafted with ❤️ by {" "}
               <a
-                href="https://www.snapit.tech/pgbadgujar007/5w3jtzcp1e"
+                href="https://drive.google.com/file/d/15t0M3hBXfdHl9Mi1aoIIPymFTpeibG5Z/view"
                 className="text-primary text-decoration-none fw-bold"
                 target="_blank"
                 rel="noreferrer"

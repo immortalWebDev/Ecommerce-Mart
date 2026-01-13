@@ -171,7 +171,7 @@ const BuyNow = () => {
                   to={isAuthenticated ? "/cart" : "/login"}
                   className="btn btn-info px-4 py-2"
                 >
-                  <i className="fa fa-shopping-cart me-2"></i> Proceed to Buy
+                  <i className="fa fa-shopping-cart me-2"></i> See the cart
                 </Link>
               </div>
             </div>
