@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCartFromFirebase } from "./utils/firebaseHelper";
 import { setCart } from "./redux/slices/cartSlice";
 import { ClipLoader } from "react-spinners";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const Profile = lazy(() => import("./pages/Profile"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -60,6 +61,7 @@ const App = () => {
   return (
     <>
       <ScrollHandler>
+        <ErrorBoundary>
         <Suspense
           fallback={
             <div
@@ -92,6 +94,7 @@ const App = () => {
             <Route path="/product/*" element={<PageNotFound404Error />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </ScrollHandler>
       <Toaster />
     </>
