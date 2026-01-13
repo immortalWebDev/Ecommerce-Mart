@@ -77,7 +77,7 @@ const Profile = () => {
 
       localStorage.setItem("userName",name) //update to reflect in LS
 
-      const getTokenCall = await getToken();
+      // const getTokenCall = await getToken();
     
       // console.log('Updated name:',name)
       // const localToken = localStorage.getItem('token')

@@ -14,7 +14,7 @@ const PageNotFound404Error = () => {
               <h1 className="display-3 text-danger fw-bold">404</h1>
               <h4 className="text-muted mb-4">Oops! Page Not Found</h4>
               <p className="text-muted mb-4">
-                The page you are looking for might have been removed or is temporarily unavailable.
+                Oops, you've reached somewhere unexpected.
               </p>
               <Link to="/" className="btn btn-dark btn-lg px-4 py-2 rounded-pill">
                 <i className="fa fa-home"></i> Go Back to Home
