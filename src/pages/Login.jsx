@@ -16,6 +16,17 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const DEMO_USER = {
+  email: "lejyrobe@thetechnext.net",
+  password: "lejyrobe@thetechnext.net"
+};
+
+ function handleDemo(){
+  setEmail(DEMO_USER.email)
+  setPassword(DEMO_USER.password)
+ }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,7 +46,8 @@ const Login = () => {
       );
 
       const data = response.data;
-      console.log("User signed in successfully", data.displayName);
+      // console.log(response.data)
+      // console.log("User signed in successfully", data.displayName);
       // console.log(data.idToken)
 
        toast.success("Heyy, Welcome to Great Mart", {
@@ -211,6 +223,14 @@ const Login = () => {
                     >
                       {isLoading ? "Logging in..." : "Login"}
                     </button>
+                    <button
+                      type="button"
+                      onClick={handleDemo}
+                      className="btn btn-outline-dark rounded-pill py-2 mt-3"
+                    >
+                      Use demo credentials
+                    </button>
+                    
                   </div>
                   <div className="text-center mt-4">
                     <p>
